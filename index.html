@@ -4,1248 +4,223 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Northern Spray Foam | Job Data Entry</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init("Q7vfSyGPYW9lQTux-");
-    })();
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>emailjs.init("Q7vfSyGPYW9lQTux-");</script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --black: #000000;
-      --white: #ffffff;
-      --gray-50: #fafafa;
-      --gray-100: #f5f5f5;
-      --gray-200: #e5e5e5;
-      --gray-300: #d4d4d4;
-      --gray-400: #a3a3a3;
-      --gray-500: #737373;
-      --gray-600: #525252;
-      --gray-700: #404040;
-      --gray-800: #262626;
-      --gray-900: #171717;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--gray-100);
-      color: var(--gray-900);
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-
-    /* LOGIN SCREEN */
-    .login-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--black);
-      padding: 20px;
-    }
-
-    .login-container {
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .login-logo {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .login-logo-icon {
-      width: 72px;
-      height: 72px;
-      border: 2px solid var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-    }
-
-    .login-logo-icon svg {
-      width: 36px;
-      height: 36px;
-      stroke: var(--white);
-    }
-
-    .login-logo h1 {
-      font-family: var(--font-mono);
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: -0.5px;
-      text-transform: uppercase;
-    }
-
-    .login-logo p {
-      font-size: 12px;
-      color: var(--gray-500);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-top: 8px;
-    }
-
-    .login-form {
-      background: var(--white);
-      padding: 40px;
-    }
-
-    .login-form h2 {
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-      color: var(--gray-900);
-    }
-
-    .form-field {
-      margin-bottom: 20px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--gray-500);
-      margin-bottom: 8px;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 2px solid var(--gray-200);
-      font-family: var(--font-sans);
-      font-size: 15px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      background: var(--white);
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--black);
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-input::placeholder {
-      color: var(--gray-400);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 32px;
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-primary {
-      width: 100%;
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .btn-primary:hover {
-      background: var(--gray-800);
-    }
-
-    .btn-primary:disabled {
-      background: var(--gray-300);
-      cursor: not-allowed;
-    }
-
-    .btn-secondary {
-      background: var(--white);
-      color: var(--black);
-      border: 2px solid var(--black);
-    }
-
-    .btn-secondary:hover {
-      background: var(--gray-100);
-    }
-
-    .error-message {
-      background: var(--gray-900);
-      color: var(--white);
-      padding: 12px 16px;
-      font-size: 13px;
-      margin-bottom: 20px;
-      display: none;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .error-message.show {
-      display: flex;
-    }
-
-    .demo-accounts {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid var(--gray-200);
-    }
-
-    .demo-accounts h3 {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--gray-400);
-      margin-bottom: 12px;
-    }
-
-    .demo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .demo-item {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--gray-600);
-      padding: 8px 12px;
-      background: var(--gray-100);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .demo-item:hover {
-      background: var(--gray-200);
-    }
-
-    /* MAIN APP */
-    .app-screen {
-      display: none;
-      min-height: 100vh;
-    }
-
-    .app-screen.active {
-      display: block;
-    }
-
-    .header {
-      background: var(--black);
-      color: var(--white);
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .header-logo-mark {
-      width: 32px;
-      height: 32px;
-      border: 1.5px solid var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .header-logo-mark svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .header-title {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 16px;
-      background: var(--gray-900);
-    }
-
-    .user-name {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .user-rig {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 4px 8px;
-      background: var(--white);
-      color: var(--black);
-      font-weight: 600;
-    }
-
-    .btn-logout {
-      padding: 10px 16px;
-      background: transparent;
-      border: 1px solid var(--gray-700);
-      color: var(--white);
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-logout:hover {
-      background: var(--white);
-      color: var(--black);
-      border-color: var(--white);
-    }
-
-    /* FORM CONTAINER */
-    .form-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 32px 24px 64px;
-    }
-
-    .form-header {
-      margin-bottom: 32px;
-    }
-
-    .form-header h1 {
-      font-family: var(--font-mono);
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--black);
-      margin-bottom: 8px;
-    }
-
-    .form-header p {
-      color: var(--gray-500);
-      font-size: 14px;
-    }
-
-    .form-section {
-      background: var(--white);
-      margin-bottom: 2px;
-    }
-
-    .section-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .section-number {
-      width: 28px;
-      height: 28px;
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .section-title {
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .section-content {
-      padding: 24px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .form-grid.cols-4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .form-field.full-width {
-      grid-column: 1 / -1;
-    }
-
-    /* Material rows */
-    .material-row {
-      background: var(--gray-50);
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-
-    .material-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .material-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--black);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .material-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .material-grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-    }
-
-    /* Radio options */
-    .radio-group {
-      display: flex;
-      gap: 12px;
-    }
-
-    .radio-option {
-      flex: 1;
-      position: relative;
-    }
-
-    .radio-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .radio-option label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 20px;
-      border: 2px solid var(--gray-200);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .radio-option input:checked + label {
-      border-color: var(--black);
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .radio-option label:hover {
-      border-color: var(--gray-400);
-    }
-
-    /* Calculation boxes */
-    .calc-box {
-      background: var(--gray-50);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .calc-input {
-      width: 80px;
-      padding: 12px;
-      border: 2px solid var(--gray-300);
-      font-family: var(--font-mono);
-      font-size: 16px;
-      text-align: center;
-      background: var(--white);
-    }
-
-    .calc-input:focus {
-      outline: none;
-      border-color: var(--black);
-    }
-
-    .calc-operator {
-      font-family: var(--font-mono);
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--gray-500);
-    }
-
-    .calc-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--gray-600);
-    }
-
-    .calc-result {
-      padding: 12px 20px;
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--font-mono);
-      font-size: 18px;
-      font-weight: 600;
-      min-width: 80px;
-      text-align: center;
-    }
-
-    /* Textarea */
-    textarea.form-input {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    /* Submit section */
-    .submit-section {
-      background: var(--black);
-      padding: 40px;
-      text-align: center;
-      margin-top: 32px;
-    }
-
-    .btn-submit {
-      padding: 20px 48px;
-      background: var(--white);
-      color: var(--black);
-      border: none;
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-submit:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-submit:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .submit-note {
-      color: var(--gray-500);
-      font-size: 12px;
-      margin-top: 16px;
-    }
-
-    /* Spinner */
-    .spinner {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--gray-300);
-      border-top-color: var(--black);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* SUCCESS SCREEN */
-    .success-screen {
-      display: none;
-      min-height: 100vh;
-      background: var(--black);
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .success-screen.active {
-      display: flex;
-    }
-
-    .success-card {
-      background: var(--white);
-      padding: 48px;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .success-icon {
-      width: 80px;
-      height: 80px;
-      border: 3px solid var(--black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-    }
-
-    .success-icon svg {
-      width: 40px;
-      height: 40px;
-      stroke: var(--black);
-    }
-
-    .success-title {
-      font-family: var(--font-mono);
-      font-size: 24px;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .success-text {
-      color: var(--gray-600);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .success-id {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--gray-500);
-      padding: 12px;
-      background: var(--gray-100);
-      margin-bottom: 24px;
-    }
-
-    .success-actions {
-      display: flex;
-      gap: 12px;
-    }
-
-    .success-actions .btn {
-      flex: 1;
-    }
-
-    /* HISTORY PANEL */
-    .history-panel {
-      position: fixed;
-      top: 64px;
-      right: 0;
-      width: 400px;
-      height: calc(100vh - 64px);
-      background: var(--white);
-      border-left: 1px solid var(--gray-200);
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 99;
-      overflow-y: auto;
-    }
-
-    .history-panel.open {
-      transform: translateX(0);
-    }
-
-    .history-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: var(--white);
-    }
-
-    .history-title {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .history-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    .history-list {
-      padding: 16px;
-    }
-
-    .history-item {
-      padding: 16px;
-      background: var(--gray-50);
-      margin-bottom: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .history-item:hover {
-      background: var(--gray-100);
-    }
-
-    .history-item-client {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .history-item-date {
-      font-size: 12px;
-      color: var(--gray-500);
-      font-family: var(--font-mono);
-    }
-
-    .history-item-id {
-      font-size: 10px;
-      color: var(--gray-400);
-      font-family: var(--font-mono);
-      margin-top: 8px;
-    }
-
-    .history-empty {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--gray-500);
-      font-size: 14px;
-    }
-
-    .btn-history {
-      padding: 10px 16px;
-      background: transparent;
-      border: 1px solid var(--gray-700);
-      color: var(--white);
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-right: 8px;
-    }
-
-    .btn-history:hover {
-      background: var(--white);
-      color: var(--black);
-      border-color: var(--white);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .header {
-        padding: 0 16px;
-        height: auto;
-        flex-direction: column;
-        gap: 12px;
-        padding: 16px;
-      }
-
-      .header-right {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      .form-container {
-        padding: 16px;
-      }
-
-      .form-grid,
-      .form-grid.cols-4 {
-        grid-template-columns: 1fr;
-      }
-
-      .material-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .material-grid-3 {
-        grid-template-columns: 1fr;
-      }
-
-      .radio-group {
-        flex-direction: column;
-      }
-
-      .calc-box {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .calc-input {
-        width: 100%;
-      }
-
-      .success-actions {
-        flex-direction: column;
-      }
-
-      .history-panel {
-        width: 100%;
-      }
-    }
-
-    .hidden {
-      display: none !important;
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--black:#000;--white:#fff;--gray-100:#f5f5f5;--gray-200:#e5e5e5;--gray-300:#d4d4d4;--gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-800:#262626;--gray-900:#171717}
+    body{font-family:'Inter',sans-serif;background:var(--gray-100);color:var(--gray-900);line-height:1.5;min-height:100vh}
+    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);padding:20px}
+    .login-container{width:100%;max-width:400px}
+    .login-logo{text-align:center;margin-bottom:48px}
+    .login-logo-icon{width:72px;height:72px;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+    .login-logo-icon svg{width:36px;height:36px;stroke:var(--white)}
+    .login-logo h1{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--white);text-transform:uppercase}
+    .login-logo p{font-size:12px;color:var(--gray-500);text-transform:uppercase;letter-spacing:3px;margin-top:8px}
+    .login-form{background:var(--white);padding:40px}
+    .login-form h2{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px}
+    .form-field{margin-bottom:20px}
+    .form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:8px}
+    .form-input{width:100%;padding:14px 16px;border:2px solid var(--gray-200);font-family:inherit;font-size:15px;background:var(--white)}
+    .form-input:focus{outline:none;border-color:var(--black)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;font-family:inherit;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer}
+    .btn-primary{width:100%;background:var(--black);color:var(--white)}
+    .btn-primary:hover{background:var(--gray-800)}
+    .btn-secondary{background:var(--white);color:var(--black);border:2px solid var(--black)}
+    .error-message{background:var(--gray-900);color:var(--white);padding:12px 16px;font-size:13px;margin-bottom:20px;display:none}
+    .error-message.show{display:flex;align-items:center;gap:10px}
+    .demo-accounts{margin-top:32px;padding-top:24px;border-top:1px solid var(--gray-200)}
+    .demo-accounts h3{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray-400);margin-bottom:12px}
+    .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .demo-item{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-600);padding:8px 12px;background:var(--gray-100);cursor:pointer}
+    .demo-item:hover{background:var(--gray-200)}
+    .app-screen{display:none;min-height:100vh}
+    .app-screen.active{display:block}
+    .header{background:var(--black);color:var(--white);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .header-logo{display:flex;align-items:center;gap:12px}
+    .header-logo-mark{width:32px;height:32px;border:1.5px solid var(--white);display:flex;align-items:center;justify-content:center}
+    .header-logo-mark svg{width:16px;height:16px}
+    .header-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;text-transform:uppercase}
+    .header-right{display:flex;align-items:center;gap:16px}
+    .user-info{display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--gray-900)}
+    .user-name{font-size:13px;font-weight:500}
+    .user-rig{font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 8px;background:var(--white);color:var(--black);font-weight:600}
+    .btn-logout{padding:10px 16px;background:transparent;border:1px solid var(--gray-600);color:var(--white);font-family:inherit;font-size:12px;font-weight:500;text-transform:uppercase;cursor:pointer}
+    .btn-logout:hover{background:var(--white);color:var(--black)}
+    .form-container{max-width:800px;margin:0 auto;padding:32px 24px 64px}
+    .form-header{margin-bottom:32px}
+    .form-header h1{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;margin-bottom:8px}
+    .form-header p{color:var(--gray-500);font-size:14px}
+    .form-section{background:var(--white);margin-bottom:2px}
+    .section-header{padding:20px 24px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:12px}
+    .section-number{width:28px;height:28px;background:var(--black);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+    .section-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+    .section-content{padding:24px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .form-grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    .material-row{background:#fafafa;padding:16px;margin-bottom:12px}
+    .material-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;margin-bottom:12px;text-transform:uppercase}
+    .material-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .radio-group{display:flex;gap:12px}
+    .radio-option{flex:1;position:relative}
+    .radio-option input{position:absolute;opacity:0}
+    .radio-option label{display:flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid var(--gray-200);cursor:pointer;font-size:14px;font-weight:500}
+    .radio-option input:checked+label{border-color:var(--black);background:var(--black);color:var(--white)}
+    .calc-box{background:#fafafa;padding:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .calc-input{width:80px;padding:12px;border:2px solid var(--gray-300);font-family:'JetBrains Mono',monospace;font-size:16px;text-align:center}
+    .calc-input:focus{outline:none;border-color:var(--black)}
+    .calc-operator{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--gray-500)}
+    .calc-label{font-size:12px;font-weight:500;color:var(--gray-600)}
+    .calc-result{padding:12px 20px;background:var(--black);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;min-width:80px;text-align:center}
+    textarea.form-input{min-height:120px;resize:vertical}
+    .submit-section{background:var(--black);padding:40px;text-align:center;margin-top:32px}
+    .btn-submit{padding:20px 48px;background:var(--white);color:var(--black);border:none;font-family:inherit;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer}
+    .btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.2)}
+    .btn-submit:disabled{opacity:.5;cursor:not-allowed}
+    .submit-note{color:var(--gray-500);font-size:12px;margin-top:16px}
+    .spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--gray-300);border-top-color:var(--black);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .success-screen{display:none;min-height:100vh;background:var(--black);align-items:center;justify-content:center;padding:24px}
+    .success-screen.active{display:flex}
+    .success-card{background:var(--white);padding:48px;max-width:500px;width:100%;text-align:center}
+    .success-icon{width:80px;height:80px;border:3px solid var(--black);display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+    .success-icon svg{width:40px;height:40px;stroke:var(--black)}
+    .success-title{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;text-transform:uppercase;margin-bottom:16px}
+    .success-text{color:var(--gray-600);font-size:14px;line-height:1.6;margin-bottom:32px}
+    .success-id{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-500);padding:12px;background:var(--gray-100);margin-bottom:24px}
+    .success-actions{display:flex;gap:12px}
+    .success-actions .btn{flex:1}
+    @media(max-width:768px){
+      .header{padding:16px;height:auto;flex-direction:column;gap:12px}
+      .header-right{width:100%;justify-content:space-between}
+      .form-container{padding:16px}
+      .form-grid,.form-grid.cols-4,.material-grid-3{grid-template-columns:1fr}
+      .radio-group{flex-direction:column}
+      .calc-box{flex-direction:column;align-items:stretch}
+      .calc-input{width:100%}
+      .success-actions{flex-direction:column}
     }
   </style>
 </head>
 <body>
-
-  <!-- LOGIN SCREEN -->
   <div id="loginScreen" class="login-screen">
     <div class="login-container">
       <div class="login-logo">
-        <div class="login-logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
-        </div>
+        <div class="login-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
         <h1>Northern</h1>
         <p>Spray Foam</p>
       </div>
-
       <div class="login-form">
         <h2>Sign In</h2>
-        
-        <div id="loginError" class="error-message">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="15" y1="9" x2="9" y2="15"/>
-            <line x1="9" y1="9" x2="15" y2="15"/>
-          </svg>
-          <span id="loginErrorText">Invalid username or password</span>
-        </div>
-
+        <div id="loginError" class="error-message"><span>Invalid username or password</span></div>
         <form id="loginForm">
-          <div class="form-field">
-            <label class="form-label" for="username">Username</label>
-            <input type="text" id="username" class="form-input" placeholder="Enter username" required>
-          </div>
-
-          <div class="form-field">
-            <label class="form-label" for="password">Password</label>
-            <input type="password" id="password" class="form-input" placeholder="Enter password" required>
-          </div>
-
-          <button type="submit" class="btn btn-primary" id="loginBtn">
-            Sign In
-          </button>
+          <div class="form-field"><label class="form-label">Username</label><input type="text" id="username" class="form-input" placeholder="Enter username" required></div>
+          <div class="form-field"><label class="form-label">Password</label><input type="password" id="password" class="form-input" placeholder="Enter password" required></div>
+          <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
-
         <div class="demo-accounts">
           <h3>Employee Accounts (click to autofill)</h3>
           <div class="demo-grid">
-            <div class="demo-item" onclick="fillLogin('riley', 'Riley123')">Riley / Riley123</div>
-            <div class="demo-item" onclick="fillLogin('josh', 'Josh123')">Josh / Josh123</div>
-            <div class="demo-item" onclick="fillLogin('kyle', 'Kyle123')">Kyle / Kyle123</div>
+            <div class="demo-item" onclick="document.getElementById('username').value='riley';document.getElementById('password').value='Riley123'">Riley / Riley123</div>
+            <div class="demo-item" onclick="document.getElementById('username').value='josh';document.getElementById('password').value='Josh123'">Josh / Josh123</div>
+            <div class="demo-item" onclick="document.getElementById('username').value='kyle';document.getElementById('password').value='Kyle123'">Kyle / Kyle123</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MAIN APP SCREEN -->
   <div id="appScreen" class="app-screen">
     <header class="header">
-      <div class="header-left">
-        <div class="header-logo">
-          <div class="header-logo-mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <span class="header-title">Northern Spray Foam</span>
-        </div>
-      </div>
+      <div class="header-logo"><div class="header-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><span class="header-title">Northern Spray Foam</span></div>
       <div class="header-right">
-        <div class="user-info">
-          <span class="user-name" id="userName"></span>
-          <span class="user-rig" id="userRig"></span>
-        </div>
-        <button class="btn-history" id="historyBtn">History</button>
+        <div class="user-info"><span class="user-name" id="userName"></span><span class="user-rig" id="userRig"></span></div>
         <button class="btn-logout" id="logoutBtn">Sign Out</button>
       </div>
     </header>
-
-    <!-- History Panel -->
-    <div id="historyPanel" class="history-panel">
-      <div class="history-header">
-        <span class="history-title">Submitted Reports</span>
-        <button class="history-close" id="historyClose">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-      </div>
-      <div class="history-list" id="historyList">
-        <div class="history-empty">No reports submitted yet</div>
-      </div>
-    </div>
-
     <div class="form-container">
-      <div class="form-header">
-        <h1>Daily Work Report</h1>
-        <p>Complete all fields and submit when finished</p>
-      </div>
-
+      <div class="form-header"><h1>Daily Work Report</h1><p>Complete all fields and submit when finished</p></div>
       <form id="reportForm">
-        <!-- Section 1: Job Details -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">01</div>
-            <div class="section-title">Job Details</div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">01</div><div class="section-title">Job Details</div></div>
+          <div class="section-content"><div class="form-grid">
+            <div class="form-field"><label class="form-label">Date</label><input type="date" id="date" name="date" class="form-input" required></div>
+            <div class="form-field"><label class="form-label">Time</label><input type="time" id="time" name="time" class="form-input" required></div>
+            <div class="form-field"><label class="form-label">Client Name</label><input type="text" name="client" class="form-input" placeholder="Enter client name" required></div>
+            <div class="form-field"><label class="form-label">Address</label><input type="text" name="address" class="form-input" placeholder="Job site address" required></div>
+          </div></div>
+        </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">02</div><div class="section-title">ISO Materials</div></div>
           <div class="section-content">
-            <div class="form-grid">
-              <div class="form-field">
-                <label class="form-label" for="date">Date</label>
-                <input type="date" id="date" name="date" class="form-input" required>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="time">Time</label>
-                <input type="time" id="time" name="time" class="form-input" required>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="client">Client Name</label>
-                <input type="text" id="client" name="client" class="form-input" placeholder="Enter client name" required>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="address">Address</label>
-                <input type="text" id="address" name="address" class="form-input" placeholder="Job site address" required>
-              </div>
-            </div>
+            <div class="material-row"><div class="material-label">ISO 1</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso1Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso1Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso1Mfg" class="form-input"></div></div></div>
+            <div class="material-row"><div class="material-label">ISO 2</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso2Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso2Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso2Mfg" class="form-input"></div></div></div>
+            <div class="material-row"><div class="material-label">ISO 3</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso3Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso3Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso3Mfg" class="form-input"></div></div></div>
           </div>
         </div>
-
-        <!-- Section 2: ISO Materials -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">02</div>
-            <div class="section-title">ISO Materials</div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">03</div><div class="section-title">Resin Materials</div></div>
           <div class="section-content">
-            <div class="material-row">
-              <div class="material-label">ISO 1</div>
-              <div class="material-grid-3">
-                <div class="form-field">
-                  <label class="form-label">Batch #</label>
-                  <input type="text" name="iso1Batch" class="form-input" placeholder="Batch number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Lot #</label>
-                  <input type="text" name="iso1Lot" class="form-input" placeholder="Lot number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Mfg Date</label>
-                  <input type="date" name="iso1Mfg" class="form-input">
-                </div>
-              </div>
-            </div>
-            <div class="material-row">
-              <div class="material-label">ISO 2</div>
-              <div class="material-grid-3">
-                <div class="form-field">
-                  <label class="form-label">Batch #</label>
-                  <input type="text" name="iso2Batch" class="form-input" placeholder="Batch number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Lot #</label>
-                  <input type="text" name="iso2Lot" class="form-input" placeholder="Lot number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Mfg Date</label>
-                  <input type="date" name="iso2Mfg" class="form-input">
-                </div>
-              </div>
-            </div>
-            <div class="material-row">
-              <div class="material-label">ISO 3</div>
-              <div class="material-grid-3">
-                <div class="form-field">
-                  <label class="form-label">Batch #</label>
-                  <input type="text" name="iso3Batch" class="form-input" placeholder="Batch number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Lot #</label>
-                  <input type="text" name="iso3Lot" class="form-input" placeholder="Lot number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Mfg Date</label>
-                  <input type="date" name="iso3Mfg" class="form-input">
-                </div>
-              </div>
-            </div>
+            <div class="material-row"><div class="material-label">Resin 1</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin1Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin1Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin1Mfg" class="form-input"></div></div></div>
+            <div class="material-row"><div class="material-label">Resin 2</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin2Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin2Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin2Mfg" class="form-input"></div></div></div>
+            <div class="material-row"><div class="material-label">Resin 3</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin3Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin3Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin3Mfg" class="form-input"></div></div></div>
           </div>
         </div>
-
-        <!-- Section 3: Resin Materials -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">03</div>
-            <div class="section-title">Resin Materials</div>
-          </div>
-          <div class="section-content">
-            <div class="material-row">
-              <div class="material-label">Resin 1</div>
-              <div class="material-grid-3">
-                <div class="form-field">
-                  <label class="form-label">Batch #</label>
-                  <input type="text" name="resin1Batch" class="form-input" placeholder="Batch number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Lot #</label>
-                  <input type="text" name="resin1Lot" class="form-input" placeholder="Lot number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Mfg Date</label>
-                  <input type="date" name="resin1Mfg" class="form-input">
-                </div>
-              </div>
-            </div>
-            <div class="material-row">
-              <div class="material-label">Resin 2</div>
-              <div class="material-grid-3">
-                <div class="form-field">
-                  <label class="form-label">Batch #</label>
-                  <input type="text" name="resin2Batch" class="form-input" placeholder="Batch number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Lot #</label>
-                  <input type="text" name="resin2Lot" class="form-input" placeholder="Lot number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Mfg Date</label>
-                  <input type="date" name="resin2Mfg" class="form-input">
-                </div>
-              </div>
-            </div>
-            <div class="material-row">
-              <div class="material-label">Resin 3</div>
-              <div class="material-grid-3">
-                <div class="form-field">
-                  <label class="form-label">Batch #</label>
-                  <input type="text" name="resin3Batch" class="form-input" placeholder="Batch number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Lot #</label>
-                  <input type="text" name="resin3Lot" class="form-input" placeholder="Lot number">
-                </div>
-                <div class="form-field">
-                  <label class="form-label">Mfg Date</label>
-                  <input type="date" name="resin3Mfg" class="form-input">
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">04</div><div class="section-title">Environmental Conditions</div></div>
+          <div class="section-content"><div class="form-grid cols-4">
+            <div class="form-field"><label class="form-label">Drum</label><input type="text" name="drum" class="form-input" placeholder="Drum #"></div>
+            <div class="form-field"><label class="form-label">Ambient Temp</label><input type="text" name="ambientTemp" class="form-input" placeholder="e.g. 72F"></div>
+            <div class="form-field"><label class="form-label">R.H. %</label><input type="number" name="relativeHumidity" class="form-input" placeholder="45"></div>
+            <div class="form-field"><label class="form-label">Substrate</label><input type="text" name="substrate" class="form-input" placeholder="Wood"></div>
+          </div></div>
         </div>
-
-        <!-- Section 4: Environmental Conditions -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">04</div>
-            <div class="section-title">Environmental Conditions</div>
-          </div>
-          <div class="section-content">
-            <div class="form-grid cols-4">
-              <div class="form-field">
-                <label class="form-label" for="drum">Drum</label>
-                <input type="text" id="drum" name="drum" class="form-input" placeholder="Drum #">
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="ambientTemp">Ambient Temp</label>
-                <input type="text" id="ambientTemp" name="ambientTemp" class="form-input" placeholder="e.g. 72°F">
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="relativeHumidity">R.H. %</label>
-                <input type="number" id="relativeHumidity" name="relativeHumidity" class="form-input" placeholder="e.g. 45">
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="substrate">Substrate</label>
-                <input type="text" id="substrate" name="substrate" class="form-input" placeholder="e.g. Wood">
-              </div>
-            </div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">05</div><div class="section-title">Stroke Count</div></div>
+          <div class="section-content"><div class="calc-box">
+            <div><div class="calc-label">Stroke Count</div><input type="number" name="strokeCount" class="calc-input" id="strokeCount" placeholder="0"></div>
+            <span class="calc-operator">+</span>
+            <div><div class="calc-label">Rig #</div><input type="text" name="rigNumber" class="calc-input" id="rigNumber" placeholder="1"></div>
+            <span class="calc-operator">=</span>
+            <div><div class="calc-label">Total</div><input type="text" name="strokeTotal" class="calc-input" id="strokeTotal" placeholder="0"></div>
+          </div></div>
         </div>
-
-        <!-- Section 5: Stroke Count -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">05</div>
-            <div class="section-title">Stroke Count</div>
-          </div>
-          <div class="section-content">
-            <div class="calc-box">
-              <div>
-                <div class="calc-label">Stroke Count</div>
-                <input type="number" name="strokeCount" class="calc-input" id="strokeCount" placeholder="0">
-              </div>
-              <span class="calc-operator">+</span>
-              <div>
-                <div class="calc-label">Rig #</div>
-                <input type="text" name="rigNumber" class="calc-input" id="rigNumber" placeholder="1">
-              </div>
-              <span class="calc-operator">=</span>
-              <div>
-                <div class="calc-label">Total</div>
-                <input type="text" name="strokeTotal" class="calc-input" id="strokeTotal" placeholder="0">
-              </div>
-            </div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">06</div><div class="section-title">Test Results</div></div>
+          <div class="section-content"><div class="calc-box">
+            <div><div class="calc-label">Test (g)</div><input type="number" step="0.01" name="testG" class="calc-input" id="testG" placeholder="0"></div>
+            <span class="calc-operator">/</span>
+            <div><div class="calc-label">ml</div><input type="number" step="0.01" name="testMl" class="calc-input" id="testMl" placeholder="0"></div>
+            <span class="calc-operator">x</span>
+            <div class="calc-result" style="background:transparent;color:var(--gray-600);font-size:16px">62.4</div>
+            <span class="calc-operator">=</span>
+            <div class="calc-result" id="testResult">-</div>
+          </div></div>
         </div>
-
-        <!-- Section 6: Test Results -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">06</div>
-            <div class="section-title">Test Results</div>
-          </div>
-          <div class="section-content">
-            <div class="calc-box">
-              <div>
-                <div class="calc-label">Test (g)</div>
-                <input type="number" step="0.01" name="testG" class="calc-input" id="testG" placeholder="0">
-              </div>
-              <span class="calc-operator">/</span>
-              <div>
-                <div class="calc-label">ml</div>
-                <input type="number" step="0.01" name="testMl" class="calc-input" id="testMl" placeholder="0">
-              </div>
-              <span class="calc-operator">×</span>
-              <div class="calc-result" style="background: transparent; color: var(--gray-600); font-size: 16px;">62.4</div>
-              <span class="calc-operator">=</span>
-              <div class="calc-result" id="testResult">—</div>
-            </div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">07</div><div class="section-title">Foam Type</div></div>
+          <div class="section-content"><div class="radio-group">
+            <div class="radio-option"><input type="radio" id="foamBASF" name="foamType" value="BASF V5"><label for="foamBASF">BASF V5</label></div>
+            <div class="radio-option"><input type="radio" id="foamElastochem" name="foamType" value="Elastochem"><label for="foamElastochem">Elastochem</label></div>
+          </div></div>
         </div>
-
-        <!-- Section 7: Foam Type -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">07</div>
-            <div class="section-title">Foam Type</div>
-          </div>
-          <div class="section-content">
-            <div class="radio-group">
-              <div class="radio-option">
-                <input type="radio" id="foamBASF" name="foamType" value="BASF V5">
-                <label for="foamBASF">BASF V5</label>
-              </div>
-              <div class="radio-option">
-                <input type="radio" id="foamElastochem" name="foamType" value="Elastochem">
-                <label for="foamElastochem">Elastochem</label>
-              </div>
-            </div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">08</div><div class="section-title">Order Information</div></div>
+          <div class="section-content"><div class="form-grid">
+            <div class="form-field"><label class="form-label">Gillis Containers - Quote #</label><input type="text" name="gillisQuote" class="form-input" placeholder="Quote number"></div>
+            <div class="form-field"><label class="form-label">Outdoor Plus - PO #</label><input type="text" name="outdoorPO" class="form-input" placeholder="PO number"></div>
+          </div></div>
         </div>
-
-        <!-- Section 8: Order Information -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">08</div>
-            <div class="section-title">Order Information</div>
-          </div>
-          <div class="section-content">
-            <div class="form-grid">
-              <div class="form-field">
-                <label class="form-label" for="gillisQuote">Gillis Containers — Quote #</label>
-                <input type="text" id="gillisQuote" name="gillisQuote" class="form-input" placeholder="Enter quote number">
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="outdoorPO">Outdoor Plus — PO #</label>
-                <input type="text" id="outdoorPO" name="outdoorPO" class="form-input" placeholder="Enter PO number">
-              </div>
-            </div>
-          </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">09</div><div class="section-title">Additional Notes</div></div>
+          <div class="section-content"><textarea name="notes" class="form-input" placeholder="Any additional notes..."></textarea></div>
         </div>
-
-        <!-- Section 9: Notes -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-number">09</div>
-            <div class="section-title">Additional Notes</div>
-          </div>
-          <div class="section-content">
-            <div class="form-field full-width">
-              <textarea name="notes" class="form-input" placeholder="Any additional notes, observations, or issues..."></textarea>
-            </div>
-          </div>
-        </div>
-
-        <!-- Submit -->
         <div class="submit-section">
-          <button type="submit" class="btn-submit" id="submitBtn">
-            Submit Report
-          </button>
-          <p class="submit-note">Report will be emailed to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bad0d5d8c9fad4d5c8ced2dfc8d4c9cac8dbc3dcd5dbd794d9db">[email&#160;protected]</a></p>
+          <button type="submit" class="btn-submit" id="submitBtn">Submit Report</button>
+          <p class="submit-note">PDF will download and email sent to simon.leveille@northernsprayfoam.ca</p>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- SUCCESS SCREEN -->
   <div id="successScreen" class="success-screen">
     <div class="success-card">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </div>
+      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
       <h2 class="success-title">Report Submitted</h2>
-      <p class="success-text" id="successMessage">
-        Your job report has been saved successfully.
-      </p>
+      <p class="success-text" id="successMessage">Your job report has been saved.</p>
       <div class="success-id" id="successReportId"></div>
       <div class="success-actions">
         <button class="btn btn-primary" id="newReportBtn">New Report</button>
@@ -1254,388 +229,142 @@
     </div>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // ═══════════════════════════════════════════════════════════
-    // USER DATABASE (simulated)
-    // ═══════════════════════════════════════════════════════════
+  <script>
+    var USERS=[{id:'1',username:'riley',password:'Riley123',name:'Riley',rig:'Rig 1'},{id:'2',username:'josh',password:'Josh123',name:'Josh',rig:'Rig 3'},{id:'3',username:'kyle',password:'Kyle123',name:'Kyle',rig:'Rig 2'}];
+    var currentUser=null;
     
-    const USERS = [
-      { id: '1', username: 'riley', password: 'Riley123', name: 'Riley', rig: 'Rig 1', role: 'operator' },
-      { id: '2', username: 'josh', password: 'Josh123', name: 'Josh', rig: 'Rig 3', role: 'operator' },
-      { id: '3', username: 'kyle', password: 'Kyle123', name: 'Kyle', rig: 'Rig 2', role: 'operator' },
-    ];
-
-    const EMAIL_RECIPIENT = 'jobs@northernsprayfoam.ca';
-
-    // ═══════════════════════════════════════════════════════════
-    // STATE
-    // ═══════════════════════════════════════════════════════════
+    function showScreen(s){
+      document.getElementById('loginScreen').style.display=s==='login'?'flex':'none';
+      document.getElementById('appScreen').style.display=s==='app'?'block':'none';
+      document.getElementById('appScreen').className=s==='app'?'app-screen active':'app-screen';
+      document.getElementById('successScreen').style.display=s==='success'?'flex':'none';
+      document.getElementById('successScreen').className=s==='success'?'success-screen active':'success-screen';
+    }
     
-    let currentUser = null;
-    let reports = JSON.parse(localStorage.getItem('sprayfoam_reports') || '[]');
-
-    // ═══════════════════════════════════════════════════════════
-    // DOM ELEMENTS
-    // ═══════════════════════════════════════════════════════════
-
-    const loginScreen = document.getElementById('loginScreen');
-    const appScreen = document.getElementById('appScreen');
-    const successScreen = document.getElementById('successScreen');
-    const loginForm = document.getElementById('loginForm');
-    const loginError = document.getElementById('loginError');
-    const loginErrorText = document.getElementById('loginErrorText');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const userName = document.getElementById('userName');
-    const userRig = document.getElementById('userRig');
-    const reportForm = document.getElementById('reportForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const testG = document.getElementById('testG');
-    const testMl = document.getElementById('testMl');
-    const testResult = document.getElementById('testResult');
-    const rigNumber = document.getElementById('rigNumber');
-    const newReportBtn = document.getElementById('newReportBtn');
-    const successLogoutBtn = document.getElementById('successLogoutBtn');
-    const successMessage = document.getElementById('successMessage');
-    const successReportId = document.getElementById('successReportId');
-    const historyBtn = document.getElementById('historyBtn');
-    const historyPanel = document.getElementById('historyPanel');
-    const historyClose = document.getElementById('historyClose');
-    const historyList = document.getElementById('historyList');
-
-    // ═══════════════════════════════════════════════════════════
-    // UTILITIES
-    // ═══════════════════════════════════════════════════════════
-
-    function fillLogin(user, pass) {
-      document.getElementById('username').value = user;
-      document.getElementById('password').value = pass;
+    function setDateTime(){
+      var n=new Date();
+      document.getElementById('date').value=n.toISOString().split('T')[0];
+      document.getElementById('time').value=n.toTimeString().slice(0,5);
     }
-
-    function showScreen(screen) {
-      loginScreen.style.display = 'none';
-      appScreen.style.display = 'none';
-      appScreen.classList.remove('active');
-      successScreen.style.display = 'none';
-      successScreen.classList.remove('active');
-
-      if (screen === 'login') {
-        loginScreen.style.display = 'flex';
-      } else if (screen === 'app') {
-        appScreen.style.display = 'block';
-        appScreen.classList.add('active');
-      } else if (screen === 'success') {
-        successScreen.style.display = 'flex';
-        successScreen.classList.add('active');
+    
+    function generatePDF(r){
+      var jsPDF=window.jspdf.jsPDF;
+      var doc=new jsPDF();
+      var w=doc.internal.pageSize.getWidth();
+      var y=20;
+      doc.setFillColor(0,0,0);doc.rect(0,0,w,35,'F');
+      doc.setTextColor(255,255,255);doc.setFontSize(20);doc.setFont('helvetica','bold');
+      doc.text('NORTHERN SPRAY FOAM',w/2,15,{align:'center'});
+      doc.setFontSize(12);doc.setFont('helvetica','normal');
+      doc.text('Daily Work Report',w/2,25,{align:'center'});
+      doc.setTextColor(0,0,0);y=45;
+      doc.setFillColor(245,245,245);doc.rect(15,y,w-30,25,'F');
+      doc.setFontSize(10);
+      doc.text('Report ID: '+r.id,20,y+8);
+      doc.text('Operator: '+r.operatorName,20,y+16);
+      doc.text('Rig: '+r.rig,100,y+8);
+      doc.text('Submitted: '+r.submittedAt,100,y+16);
+      y+=35;
+      function addSec(t,items){
+        doc.setFillColor(0,0,0);doc.rect(15,y,w-30,8,'F');
+        doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','bold');
+        doc.text(t,20,y+6);doc.setTextColor(0,0,0);doc.setFont('helvetica','normal');y+=12;
+        items.forEach(function(i){if(y>270){doc.addPage();y=20;}doc.setFontSize(9);doc.text(i.l+':',20,y);doc.setFont('helvetica','bold');doc.text(String(i.v),70,y);doc.setFont('helvetica','normal');y+=7;});
+        y+=5;
       }
+      addSec('JOB DETAILS',[{l:'Date',v:r.date||'N/A'},{l:'Time',v:r.time||'N/A'},{l:'Client',v:r.client||'N/A'},{l:'Address',v:r.address||'N/A'}]);
+      addSec('ISO MATERIALS',[{l:'ISO 1',v:'Batch: '+(r.iso1Batch||'N/A')+' | Lot: '+(r.iso1Lot||'N/A')+' | Mfg: '+(r.iso1Mfg||'N/A')},{l:'ISO 2',v:'Batch: '+(r.iso2Batch||'N/A')+' | Lot: '+(r.iso2Lot||'N/A')+' | Mfg: '+(r.iso2Mfg||'N/A')},{l:'ISO 3',v:'Batch: '+(r.iso3Batch||'N/A')+' | Lot: '+(r.iso3Lot||'N/A')+' | Mfg: '+(r.iso3Mfg||'N/A')}]);
+      addSec('RESIN MATERIALS',[{l:'Resin 1',v:'Batch: '+(r.resin1Batch||'N/A')+' | Lot: '+(r.resin1Lot||'N/A')+' | Mfg: '+(r.resin1Mfg||'N/A')},{l:'Resin 2',v:'Batch: '+(r.resin2Batch||'N/A')+' | Lot: '+(r.resin2Lot||'N/A')+' | Mfg: '+(r.resin2Mfg||'N/A')},{l:'Resin 3',v:'Batch: '+(r.resin3Batch||'N/A')+' | Lot: '+(r.resin3Lot||'N/A')+' | Mfg: '+(r.resin3Mfg||'N/A')}]);
+      addSec('ENVIRONMENTAL',[{l:'Drum',v:r.drum||'N/A'},{l:'Ambient Temp',v:r.ambientTemp||'N/A'},{l:'R.H. %',v:r.relativeHumidity||'N/A'},{l:'Substrate',v:r.substrate||'N/A'}]);
+      addSec('STROKE COUNT',[{l:'Calculation',v:(r.strokeCount||'0')+' + Rig #('+(r.rigNumber||'0')+') = '+(r.strokeTotal||'0')}]);
+      addSec('TEST RESULTS',[{l:'Calculation',v:(r.testG||'0')+'g / '+(r.testMl||'0')+'ml x 62.4 = '+(r.testResult||'0')}]);
+      addSec('FOAM TYPE',[{l:'Type',v:r.foamType||'Not specified'}]);
+      addSec('ORDER INFO',[{l:'Gillis Quote',v:r.gillisQuote||'N/A'},{l:'Outdoor PO',v:r.outdoorPO||'N/A'}]);
+      if(r.notes)addSec('NOTES',[{l:'Notes',v:r.notes}]);
+      doc.setFillColor(0,0,0);doc.rect(0,282,w,15,'F');
+      doc.setTextColor(255,255,255);doc.setFontSize(8);
+      doc.text('Northern Spray Foam - Daily Work Report',w/2,290,{align:'center'});
+      var fn='DWR_'+(r.client||'Client').replace(/[^a-zA-Z0-9]/g,'_')+'_'+r.date+'_'+r.operatorName+'.pdf';
+      doc.save(fn);
+      return fn;
     }
-
-    function setDefaultDateTime() {
-      const now = new Date();
-      document.getElementById('date').value = now.toISOString().split('T')[0];
-      document.getElementById('time').value = now.toTimeString().slice(0, 5);
-    }
-
-    function getFormData() {
-      const formData = new FormData(reportForm);
-      const data = {};
-      for (const [key, value] of formData.entries()) {
-        data[key] = value;
-      }
-      data.testResult = testResult.textContent !== '—' ? testResult.textContent : '';
-      return data;
-    }
-
-    function resetForm() {
-      reportForm.reset();
-      setDefaultDateTime();
-      if (currentUser && currentUser.rig !== 'All') {
-        rigNumber.value = currentUser.rig.replace('Rig ', '');
-      }
-      testResult.textContent = '—';
-    }
-
-    function generateReportId() {
-      return 'RPT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-    }
-
-    function generateEmailBody(report) {
-      return `
-═══════════════════════════════════════════════════════════
-    NORTHERN SPRAY FOAM - DAILY WORK REPORT
-═══════════════════════════════════════════════════════════
-
-OPERATOR: ${currentUser.name}
-RIG: DWR - ${currentUser.rig} / ${currentUser.name}
-SUBMITTED: ${new Date().toLocaleString()}
-
-───────────────────────────────────────────────────────────
-JOB DETAILS
-───────────────────────────────────────────────────────────
-Date:     ${report.date}
-Time:     ${report.time}
-Client:   ${report.client}
-Address:  ${report.address}
-
-───────────────────────────────────────────────────────────
-ISO MATERIALS
-───────────────────────────────────────────────────────────
-${report.iso1Batch || report.iso1Lot ? `ISO 1:  Batch: ${report.iso1Batch || 'N/A'}  |  Lot: ${report.iso1Lot || 'N/A'}  |  Mfg: ${report.iso1Mfg || 'N/A'}` : 'ISO 1: N/A'}
-${report.iso2Batch || report.iso2Lot ? `ISO 2:  Batch: ${report.iso2Batch || 'N/A'}  |  Lot: ${report.iso2Lot || 'N/A'}  |  Mfg: ${report.iso2Mfg || 'N/A'}` : 'ISO 2: N/A'}
-${report.iso3Batch || report.iso3Lot ? `ISO 3:  Batch: ${report.iso3Batch || 'N/A'}  |  Lot: ${report.iso3Lot || 'N/A'}  |  Mfg: ${report.iso3Mfg || 'N/A'}` : 'ISO 3: N/A'}
-
-───────────────────────────────────────────────────────────
-RESIN MATERIALS
-───────────────────────────────────────────────────────────
-${report.resin1Batch || report.resin1Lot ? `Resin 1:  Batch: ${report.resin1Batch || 'N/A'}  |  Lot: ${report.resin1Lot || 'N/A'}  |  Mfg: ${report.resin1Mfg || 'N/A'}` : 'Resin 1: N/A'}
-${report.resin2Batch || report.resin2Lot ? `Resin 2:  Batch: ${report.resin2Batch || 'N/A'}  |  Lot: ${report.resin2Lot || 'N/A'}  |  Mfg: ${report.resin2Mfg || 'N/A'}` : 'Resin 2: N/A'}
-${report.resin3Batch || report.resin3Lot ? `Resin 3:  Batch: ${report.resin3Batch || 'N/A'}  |  Lot: ${report.resin3Lot || 'N/A'}  |  Mfg: ${report.resin3Mfg || 'N/A'}` : 'Resin 3: N/A'}
-
-───────────────────────────────────────────────────────────
-ENVIRONMENTAL CONDITIONS
-───────────────────────────────────────────────────────────
-Drum:              ${report.drum || 'N/A'}
-Ambient Temp:      ${report.ambientTemp || 'N/A'}
-Relative Humidity: ${report.relativeHumidity ? report.relativeHumidity + '%' : 'N/A'}
-Substrate:         ${report.substrate || 'N/A'}
-
-───────────────────────────────────────────────────────────
-STROKE COUNT
-───────────────────────────────────────────────────────────
-${report.strokeCount || '0'} + Rig #(${report.rigNumber || '0'}) = ${report.strokeTotal || '0'}
-
-───────────────────────────────────────────────────────────
-TEST RESULTS
-───────────────────────────────────────────────────────────
-${report.testG || '0'}g / ${report.testMl || '0'}ml × 62.4 = ${report.testResult || '0'}
-
-───────────────────────────────────────────────────────────
-FOAM TYPE
-───────────────────────────────────────────────────────────
-${report.foamType || 'Not specified'}
-
-───────────────────────────────────────────────────────────
-ORDER INFORMATION
-───────────────────────────────────────────────────────────
-Gillis Containers Quote #: ${report.gillisQuote || 'N/A'}
-Outdoor Plus PO #:         ${report.outdoorPO || 'N/A'}
-
-───────────────────────────────────────────────────────────
-ADDITIONAL NOTES
-───────────────────────────────────────────────────────────
-${report.notes || 'None'}
-
-═══════════════════════════════════════════════════════════
-    Report ID: ${report.id}
-═══════════════════════════════════════════════════════════
-`.trim();
-    }
-
-    function updateHistoryPanel() {
-      const userReports = currentUser.role === 'admin' 
-        ? reports 
-        : reports.filter(r => r.userId === currentUser.id);
-
-      if (userReports.length === 0) {
-        historyList.innerHTML = '<div class="history-empty">No reports submitted yet</div>';
-        return;
-      }
-
-      historyList.innerHTML = userReports
-        .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt))
-        .map(report => `
-          <div class="history-item" onclick="viewReport('${report.id}')">
-            <div class="history-item-client">${report.client}</div>
-            <div class="history-item-date">${report.date} at ${report.time}</div>
-            <div class="history-item-id">${report.id}</div>
-          </div>
-        `).join('');
-    }
-
-    function viewReport(id) {
-      const report = reports.find(r => r.id === id);
-      if (report) {
-        alert(generateEmailBody(report));
-      }
-    }
-
-    // ═══════════════════════════════════════════════════════════
-    // EVENT HANDLERS
-    // ═══════════════════════════════════════════════════════════
-
-    loginForm.addEventListener('submit', (e) => {
+    
+    document.getElementById('loginForm').addEventListener('submit',function(e){
       e.preventDefault();
-      
-      const usernameInput = document.getElementById('username').value;
-      const passwordInput = document.getElementById('password').value;
-      
-      const user = USERS.find(u => 
-        u.username.toLowerCase() === usernameInput.toLowerCase() && 
-        u.password === passwordInput
-      );
-
-      if (user) {
-        currentUser = user;
-        loginError.classList.remove('show');
-        
-        userName.textContent = currentUser.name;
-        userRig.textContent = currentUser.rig;
-        
-        if (currentUser.rig !== 'All') {
-          rigNumber.value = currentUser.rig.replace('Rig ', '');
-        }
-        
-        setDefaultDateTime();
-        updateHistoryPanel();
+      var u=document.getElementById('username').value;
+      var p=document.getElementById('password').value;
+      var user=USERS.find(function(x){return x.username.toLowerCase()===u.toLowerCase()&&x.password===p;});
+      if(user){
+        currentUser=user;
+        document.getElementById('loginError').classList.remove('show');
+        document.getElementById('userName').textContent=user.name;
+        document.getElementById('userRig').textContent=user.rig;
+        document.getElementById('rigNumber').value=user.rig.replace('Rig ','');
+        setDateTime();
         showScreen('app');
-      } else {
-        loginError.classList.add('show');
+      }else{
+        document.getElementById('loginError').classList.add('show');
       }
     });
-
-    logoutBtn.addEventListener('click', () => {
-      currentUser = null;
-      resetForm();
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
-      historyPanel.classList.remove('open');
+    
+    document.getElementById('logoutBtn').addEventListener('click',function(){
+      currentUser=null;
+      document.getElementById('reportForm').reset();
+      document.getElementById('username').value='';
+      document.getElementById('password').value='';
       showScreen('login');
     });
-
-    reportForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
-
-      const data = getFormData();
-      const reportId = generateReportId();
-      
-      const report = {
-        id: reportId,
-        ...data,
-        userId: currentUser.id,
-        operatorName: currentUser.name,
-        rig: currentUser.rig,
-        submittedAt: new Date().toLocaleString(),
-      };
-
-      // Save to localStorage
-      reports.push(report);
-      localStorage.setItem('sprayfoam_reports', JSON.stringify(reports));
-
-      // Prepare email data for EmailJS
-      const emailData = {
-        reportId: reportId,
-        operatorName: currentUser.name,
-        rig: currentUser.rig,
-        submittedAt: new Date().toLocaleString(),
-        date: report.date || 'N/A',
-        time: report.time || 'N/A',
-        client: report.client || 'N/A',
-        address: report.address || 'N/A',
-        iso1Batch: report.iso1Batch || 'N/A',
-        iso1Lot: report.iso1Lot || 'N/A',
-        iso1Mfg: report.iso1Mfg || 'N/A',
-        iso2Batch: report.iso2Batch || 'N/A',
-        iso2Lot: report.iso2Lot || 'N/A',
-        iso2Mfg: report.iso2Mfg || 'N/A',
-        iso3Batch: report.iso3Batch || 'N/A',
-        iso3Lot: report.iso3Lot || 'N/A',
-        iso3Mfg: report.iso3Mfg || 'N/A',
-        resin1Batch: report.resin1Batch || 'N/A',
-        resin1Lot: report.resin1Lot || 'N/A',
-        resin1Mfg: report.resin1Mfg || 'N/A',
-        resin2Batch: report.resin2Batch || 'N/A',
-        resin2Lot: report.resin2Lot || 'N/A',
-        resin2Mfg: report.resin2Mfg || 'N/A',
-        resin3Batch: report.resin3Batch || 'N/A',
-        resin3Lot: report.resin3Lot || 'N/A',
-        resin3Mfg: report.resin3Mfg || 'N/A',
-        drum: report.drum || 'N/A',
-        ambientTemp: report.ambientTemp || 'N/A',
-        relativeHumidity: report.relativeHumidity || 'N/A',
-        substrate: report.substrate || 'N/A',
-        strokeCount: report.strokeCount || '0',
-        rigNumber: report.rigNumber || '0',
-        strokeTotal: report.strokeTotal || '0',
-        testG: report.testG || '0',
-        testMl: report.testMl || '0',
-        testResult: report.testResult || '0',
-        foamType: report.foamType || 'Not specified',
-        gillisQuote: report.gillisQuote || 'N/A',
-        outdoorPO: report.outdoorPO || 'N/A',
-        notes: report.notes || 'None',
-      };
-
-      // Send email via EmailJS
-      emailjs.send('service_bc8id4v', 'template_avofqoj', emailData)
-        .then(function(response) {
-          console.log('Email sent successfully!', response.status, response.text);
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Submit Report';
-          
-          successMessage.textContent = 'Your job report has been saved and emailed to simon.leveille@northernsprayfoam.ca successfully!';
-          successReportId.textContent = `Report ID: ${reportId}`;
-          
-          showScreen('success');
-        }, function(error) {
-          console.error('Email failed to send:', error);
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Submit Report';
-          
-          // Still show success but mention email issue
-          successMessage.textContent = 'Your job report has been saved locally, but the email failed to send. Please try again or contact admin.';
-          successReportId.textContent = `Report ID: ${reportId}`;
-          
-          showScreen('success');
-        });
-    });
-
-    // Test calculation
-    function updateTestResult() {
-      const g = parseFloat(testG.value) || 0;
-      const ml = parseFloat(testMl.value) || 0;
-      
-      if (g > 0 && ml > 0) {
-        const result = (g / ml) * 62.4;
-        testResult.textContent = result.toFixed(2);
-      } else {
-        testResult.textContent = '—';
-      }
+    
+    document.getElementById('testG').addEventListener('input',calcTest);
+    document.getElementById('testMl').addEventListener('input',calcTest);
+    function calcTest(){
+      var g=parseFloat(document.getElementById('testG').value)||0;
+      var ml=parseFloat(document.getElementById('testMl').value)||0;
+      document.getElementById('testResult').textContent=(g>0&&ml>0)?((g/ml)*62.4).toFixed(2):'-';
     }
-
-    testG.addEventListener('input', updateTestResult);
-    testMl.addEventListener('input', updateTestResult);
-
-    // History panel
-    historyBtn.addEventListener('click', () => {
-      updateHistoryPanel();
-      historyPanel.classList.toggle('open');
+    
+    document.getElementById('reportForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      var btn=document.getElementById('submitBtn');
+      btn.disabled=true;
+      btn.innerHTML='<span class="spinner"></span> Generating...';
+      var fd=new FormData(document.getElementById('reportForm'));
+      var data={};fd.forEach(function(v,k){data[k]=v;});
+      data.testResult=document.getElementById('testResult').textContent;
+      var id='RPT-'+Date.now()+'-'+Math.random().toString(36).substr(2,6).toUpperCase();
+      var report={id:id,operatorName:currentUser.name,rig:currentUser.rig,submittedAt:new Date().toLocaleString()};
+      for(var k in data)report[k]=data[k];
+      generatePDF(report);
+      var emailData={reportId:id,operatorName:currentUser.name,rig:currentUser.rig,submittedAt:report.submittedAt,date:data.date||'N/A',time:data.time||'N/A',client:data.client||'N/A',address:data.address||'N/A',iso1Batch:data.iso1Batch||'N/A',iso1Lot:data.iso1Lot||'N/A',iso1Mfg:data.iso1Mfg||'N/A',iso2Batch:data.iso2Batch||'N/A',iso2Lot:data.iso2Lot||'N/A',iso2Mfg:data.iso2Mfg||'N/A',iso3Batch:data.iso3Batch||'N/A',iso3Lot:data.iso3Lot||'N/A',iso3Mfg:data.iso3Mfg||'N/A',resin1Batch:data.resin1Batch||'N/A',resin1Lot:data.resin1Lot||'N/A',resin1Mfg:data.resin1Mfg||'N/A',resin2Batch:data.resin2Batch||'N/A',resin2Lot:data.resin2Lot||'N/A',resin2Mfg:data.resin2Mfg||'N/A',resin3Batch:data.resin3Batch||'N/A',resin3Lot:data.resin3Lot||'N/A',resin3Mfg:data.resin3Mfg||'N/A',drum:data.drum||'N/A',ambientTemp:data.ambientTemp||'N/A',relativeHumidity:data.relativeHumidity||'N/A',substrate:data.substrate||'N/A',strokeCount:data.strokeCount||'0',rigNumber:data.rigNumber||'0',strokeTotal:data.strokeTotal||'0',testG:data.testG||'0',testMl:data.testMl||'0',testResult:data.testResult||'0',foamType:data.foamType||'Not specified',gillisQuote:data.gillisQuote||'N/A',outdoorPO:data.outdoorPO||'N/A',notes:data.notes||'None'};
+      emailjs.send('service_bc8id4v','template_avofqoj',emailData).then(function(){
+        btn.disabled=false;btn.textContent='Submit Report';
+        document.getElementById('successMessage').textContent='PDF downloaded and email sent!';
+        document.getElementById('successReportId').textContent='Report ID: '+id;
+        showScreen('success');
+      },function(){
+        btn.disabled=false;btn.textContent='Submit Report';
+        document.getElementById('successMessage').textContent='PDF downloaded. Email failed - send PDF manually.';
+        document.getElementById('successReportId').textContent='Report ID: '+id;
+        showScreen('success');
+      });
     });
-
-    historyClose.addEventListener('click', () => {
-      historyPanel.classList.remove('open');
-    });
-
-    // Success screen buttons
-    newReportBtn.addEventListener('click', () => {
-      resetForm();
+    
+    document.getElementById('newReportBtn').addEventListener('click',function(){
+      document.getElementById('reportForm').reset();
+      setDateTime();
+      document.getElementById('rigNumber').value=currentUser.rig.replace('Rig ','');
+      document.getElementById('testResult').textContent='-';
       showScreen('app');
     });
-
-    successLogoutBtn.addEventListener('click', () => {
-      currentUser = null;
-      resetForm();
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
+    
+    document.getElementById('successLogoutBtn').addEventListener('click',function(){
+      currentUser=null;
+      document.getElementById('reportForm').reset();
+      document.getElementById('username').value='';
+      document.getElementById('password').value='';
       showScreen('login');
     });
-
-    // ═══════════════════════════════════════════════════════════
-    // INITIALIZATION
-    // ═══════════════════════════════════════════════════════════
-
+    
     showScreen('login');
   </script>
 </body>
