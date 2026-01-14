@@ -7,6 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("Q7vfSyGPYW9lQTux-");
+    })();
+  </script>
   <style>
     * {
       margin: 0;
@@ -438,6 +444,12 @@
       gap: 12px;
     }
 
+    .material-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
     /* Radio options */
     .radio-group {
       display: flex;
@@ -793,6 +805,10 @@
         grid-template-columns: 1fr;
       }
 
+      .material-grid-3 {
+        grid-template-columns: 1fr;
+      }
+
       .radio-group {
         flex-direction: column;
       }
@@ -963,10 +979,14 @@
           <div class="section-content">
             <div class="material-row">
               <div class="material-label">ISO 1</div>
-              <div class="material-grid">
+              <div class="material-grid-3">
                 <div class="form-field">
-                  <label class="form-label">Batch / Lot Number</label>
-                  <input type="text" name="iso1" class="form-input" placeholder="Enter batch number">
+                  <label class="form-label">Batch #</label>
+                  <input type="text" name="iso1Batch" class="form-input" placeholder="Batch number">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Lot #</label>
+                  <input type="text" name="iso1Lot" class="form-input" placeholder="Lot number">
                 </div>
                 <div class="form-field">
                   <label class="form-label">Mfg Date</label>
@@ -976,10 +996,14 @@
             </div>
             <div class="material-row">
               <div class="material-label">ISO 2</div>
-              <div class="material-grid">
+              <div class="material-grid-3">
                 <div class="form-field">
-                  <label class="form-label">Batch / Lot Number</label>
-                  <input type="text" name="iso2" class="form-input" placeholder="Enter batch number">
+                  <label class="form-label">Batch #</label>
+                  <input type="text" name="iso2Batch" class="form-input" placeholder="Batch number">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Lot #</label>
+                  <input type="text" name="iso2Lot" class="form-input" placeholder="Lot number">
                 </div>
                 <div class="form-field">
                   <label class="form-label">Mfg Date</label>
@@ -989,10 +1013,14 @@
             </div>
             <div class="material-row">
               <div class="material-label">ISO 3</div>
-              <div class="material-grid">
+              <div class="material-grid-3">
                 <div class="form-field">
-                  <label class="form-label">Batch / Lot Number</label>
-                  <input type="text" name="iso3" class="form-input" placeholder="Enter batch number">
+                  <label class="form-label">Batch #</label>
+                  <input type="text" name="iso3Batch" class="form-input" placeholder="Batch number">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Lot #</label>
+                  <input type="text" name="iso3Lot" class="form-input" placeholder="Lot number">
                 </div>
                 <div class="form-field">
                   <label class="form-label">Mfg Date</label>
@@ -1012,10 +1040,14 @@
           <div class="section-content">
             <div class="material-row">
               <div class="material-label">Resin 1</div>
-              <div class="material-grid">
+              <div class="material-grid-3">
                 <div class="form-field">
-                  <label class="form-label">Batch / Lot Number</label>
-                  <input type="text" name="resin1" class="form-input" placeholder="Enter batch number">
+                  <label class="form-label">Batch #</label>
+                  <input type="text" name="resin1Batch" class="form-input" placeholder="Batch number">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Lot #</label>
+                  <input type="text" name="resin1Lot" class="form-input" placeholder="Lot number">
                 </div>
                 <div class="form-field">
                   <label class="form-label">Mfg Date</label>
@@ -1025,10 +1057,14 @@
             </div>
             <div class="material-row">
               <div class="material-label">Resin 2</div>
-              <div class="material-grid">
+              <div class="material-grid-3">
                 <div class="form-field">
-                  <label class="form-label">Batch / Lot Number</label>
-                  <input type="text" name="resin2" class="form-input" placeholder="Enter batch number">
+                  <label class="form-label">Batch #</label>
+                  <input type="text" name="resin2Batch" class="form-input" placeholder="Batch number">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Lot #</label>
+                  <input type="text" name="resin2Lot" class="form-input" placeholder="Lot number">
                 </div>
                 <div class="form-field">
                   <label class="form-label">Mfg Date</label>
@@ -1038,10 +1074,14 @@
             </div>
             <div class="material-row">
               <div class="material-label">Resin 3</div>
-              <div class="material-grid">
+              <div class="material-grid-3">
                 <div class="form-field">
-                  <label class="form-label">Batch / Lot Number</label>
-                  <input type="text" name="resin3" class="form-input" placeholder="Enter batch number">
+                  <label class="form-label">Batch #</label>
+                  <input type="text" name="resin3Batch" class="form-input" placeholder="Batch number">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Lot #</label>
+                  <input type="text" name="resin3Lot" class="form-input" placeholder="Lot number">
                 </div>
                 <div class="form-field">
                   <label class="form-label">Mfg Date</label>
@@ -1189,7 +1229,7 @@
           <button type="submit" class="btn-submit" id="submitBtn">
             Submit Report
           </button>
-          <p class="submit-note">Report will be emailed to jobs@northernsprayfoam.ca</p>
+          <p class="submit-note">Report will be emailed to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bad0d5d8c9fad4d5c8ced2dfc8d4c9cac8dbc3dcd5dbd794d9db">[email&#160;protected]</a></p>
         </div>
       </form>
     </div>
@@ -1215,7 +1255,7 @@
     </div>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ═══════════════════════════════════════════════════════════
     // USER DATABASE (simulated)
     // ═══════════════════════════════════════════════════════════
@@ -1342,16 +1382,16 @@ Address:  ${report.address}
 ───────────────────────────────────────────────────────────
 ISO MATERIALS
 ───────────────────────────────────────────────────────────
-${report.iso1 ? `ISO 1:  ${report.iso1}  |  Mfg: ${report.iso1Mfg || 'N/A'}` : 'ISO 1: N/A'}
-${report.iso2 ? `ISO 2:  ${report.iso2}  |  Mfg: ${report.iso2Mfg || 'N/A'}` : 'ISO 2: N/A'}
-${report.iso3 ? `ISO 3:  ${report.iso3}  |  Mfg: ${report.iso3Mfg || 'N/A'}` : 'ISO 3: N/A'}
+${report.iso1Batch || report.iso1Lot ? `ISO 1:  Batch: ${report.iso1Batch || 'N/A'}  |  Lot: ${report.iso1Lot || 'N/A'}  |  Mfg: ${report.iso1Mfg || 'N/A'}` : 'ISO 1: N/A'}
+${report.iso2Batch || report.iso2Lot ? `ISO 2:  Batch: ${report.iso2Batch || 'N/A'}  |  Lot: ${report.iso2Lot || 'N/A'}  |  Mfg: ${report.iso2Mfg || 'N/A'}` : 'ISO 2: N/A'}
+${report.iso3Batch || report.iso3Lot ? `ISO 3:  Batch: ${report.iso3Batch || 'N/A'}  |  Lot: ${report.iso3Lot || 'N/A'}  |  Mfg: ${report.iso3Mfg || 'N/A'}` : 'ISO 3: N/A'}
 
 ───────────────────────────────────────────────────────────
 RESIN MATERIALS
 ───────────────────────────────────────────────────────────
-${report.resin1 ? `Resin 1:  ${report.resin1}  |  Mfg: ${report.resin1Mfg || 'N/A'}` : 'Resin 1: N/A'}
-${report.resin2 ? `Resin 2:  ${report.resin2}  |  Mfg: ${report.resin2Mfg || 'N/A'}` : 'Resin 2: N/A'}
-${report.resin3 ? `Resin 3:  ${report.resin3}  |  Mfg: ${report.resin3Mfg || 'N/A'}` : 'Resin 3: N/A'}
+${report.resin1Batch || report.resin1Lot ? `Resin 1:  Batch: ${report.resin1Batch || 'N/A'}  |  Lot: ${report.resin1Lot || 'N/A'}  |  Mfg: ${report.resin1Mfg || 'N/A'}` : 'Resin 1: N/A'}
+${report.resin2Batch || report.resin2Lot ? `Resin 2:  Batch: ${report.resin2Batch || 'N/A'}  |  Lot: ${report.resin2Lot || 'N/A'}  |  Mfg: ${report.resin2Mfg || 'N/A'}` : 'Resin 2: N/A'}
+${report.resin3Batch || report.resin3Lot ? `Resin 3:  Batch: ${report.resin3Batch || 'N/A'}  |  Lot: ${report.resin3Lot || 'N/A'}  |  Mfg: ${report.resin3Mfg || 'N/A'}` : 'Resin 3: N/A'}
 
 ───────────────────────────────────────────────────────────
 ENVIRONMENTAL CONDITIONS
@@ -1468,7 +1508,7 @@ ${report.notes || 'None'}
       e.preventDefault();
       
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
+      submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
 
       const data = getFormData();
       const reportId = generateReportId();
@@ -1478,31 +1518,80 @@ ${report.notes || 'None'}
         ...data,
         userId: currentUser.id,
         operatorName: currentUser.name,
-        submittedAt: new Date().toISOString(),
+        rig: currentUser.rig,
+        submittedAt: new Date().toLocaleString(),
       };
 
       // Save to localStorage
       reports.push(report);
       localStorage.setItem('sprayfoam_reports', JSON.stringify(reports));
 
-      // Generate email
-      const emailBody = generateEmailBody(report);
-      const subject = `Job Report - ${report.client} - ${report.date} - ${currentUser.name}`;
-      const mailtoLink = `mailto:${EMAIL_RECIPIENT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      // Prepare email data for EmailJS
+      const emailData = {
+        reportId: reportId,
+        operatorName: currentUser.name,
+        rig: currentUser.rig,
+        submittedAt: new Date().toLocaleString(),
+        date: report.date || 'N/A',
+        time: report.time || 'N/A',
+        client: report.client || 'N/A',
+        address: report.address || 'N/A',
+        iso1Batch: report.iso1Batch || 'N/A',
+        iso1Lot: report.iso1Lot || 'N/A',
+        iso1Mfg: report.iso1Mfg || 'N/A',
+        iso2Batch: report.iso2Batch || 'N/A',
+        iso2Lot: report.iso2Lot || 'N/A',
+        iso2Mfg: report.iso2Mfg || 'N/A',
+        iso3Batch: report.iso3Batch || 'N/A',
+        iso3Lot: report.iso3Lot || 'N/A',
+        iso3Mfg: report.iso3Mfg || 'N/A',
+        resin1Batch: report.resin1Batch || 'N/A',
+        resin1Lot: report.resin1Lot || 'N/A',
+        resin1Mfg: report.resin1Mfg || 'N/A',
+        resin2Batch: report.resin2Batch || 'N/A',
+        resin2Lot: report.resin2Lot || 'N/A',
+        resin2Mfg: report.resin2Mfg || 'N/A',
+        resin3Batch: report.resin3Batch || 'N/A',
+        resin3Lot: report.resin3Lot || 'N/A',
+        resin3Mfg: report.resin3Mfg || 'N/A',
+        drum: report.drum || 'N/A',
+        ambientTemp: report.ambientTemp || 'N/A',
+        relativeHumidity: report.relativeHumidity || 'N/A',
+        substrate: report.substrate || 'N/A',
+        strokeCount: report.strokeCount || '0',
+        rigNumber: report.rigNumber || '0',
+        strokeTotal: report.strokeTotal || '0',
+        testG: report.testG || '0',
+        testMl: report.testMl || '0',
+        testResult: report.testResult || '0',
+        foamType: report.foamType || 'Not specified',
+        gillisQuote: report.gillisQuote || 'N/A',
+        outdoorPO: report.outdoorPO || 'N/A',
+        notes: report.notes || 'None',
+      };
 
-      // Simulate submission delay
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Report';
-        
-        successMessage.textContent = 'Your job report has been saved. Click below to open your email client and send the report.';
-        successReportId.textContent = `Report ID: ${reportId}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        showScreen('success');
-      }, 1000);
+      // Send email via EmailJS
+      emailjs.send('service_bc8id4v', 'template_avofqoj', emailData)
+        .then(function(response) {
+          console.log('Email sent successfully!', response.status, response.text);
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Report';
+          
+          successMessage.textContent = 'Your job report has been saved and emailed to simon.leveille@northernsprayfoam.ca successfully!';
+          successReportId.textContent = `Report ID: ${reportId}`;
+          
+          showScreen('success');
+        }, function(error) {
+          console.error('Email failed to send:', error);
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Report';
+          
+          // Still show success but mention email issue
+          successMessage.textContent = 'Your job report has been saved locally, but the email failed to send. Please try again or contact admin.';
+          successReportId.textContent = `Report ID: ${reportId}`;
+          
+          showScreen('success');
+        });
     });
 
     // Test calculation
