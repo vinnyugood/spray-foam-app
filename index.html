@@ -3,147 +3,338 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Northern Spray Foam | Job Data Entry</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Northern Spray Foam | Daily Work Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>emailjs.init("Q7vfSyGPYW9lQTux-");</script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    :root{--black:#000;--white:#fff;--gray-100:#f5f5f5;--gray-200:#e5e5e5;--gray-300:#d4d4d4;--gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-800:#262626;--gray-900:#171717}
-    body{font-family:'Inter',sans-serif;background:var(--gray-100);color:var(--gray-900);line-height:1.5;min-height:100vh}
-    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);padding:20px}
-    .login-container{width:100%;max-width:400px}
-    .login-logo{text-align:center;margin-bottom:48px}
-    .login-logo-icon{width:72px;height:72px;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
-    .login-logo-icon svg{width:36px;height:36px;stroke:var(--white)}
-    .login-logo h1{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--white);text-transform:uppercase}
-    .login-logo p{font-size:12px;color:var(--gray-500);text-transform:uppercase;letter-spacing:3px;margin-top:8px}
-    .login-form{background:var(--white);padding:40px}
-    .login-form h2{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px}
-    .form-field{margin-bottom:20px}
-    .form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:8px}
-    .form-input{width:100%;padding:14px 16px;border:2px solid var(--gray-200);font-family:inherit;font-size:15px;background:var(--white)}
-    .form-input:focus{outline:none;border-color:var(--black)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;font-family:inherit;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer}
-    .btn-primary{width:100%;background:var(--black);color:var(--white)}
-    .btn-primary:hover{background:var(--gray-800)}
-    .btn-secondary{background:var(--white);color:var(--black);border:2px solid var(--black)}
-    .error-message{background:var(--gray-900);color:var(--white);padding:12px 16px;font-size:13px;margin-bottom:20px;display:none}
-    .error-message.show{display:flex;align-items:center;gap:10px}
-    .demo-accounts{margin-top:32px;padding-top:24px;border-top:1px solid var(--gray-200)}
-    .demo-accounts h3{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray-400);margin-bottom:12px}
-    .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .demo-item{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-600);padding:8px 12px;background:var(--gray-100);cursor:pointer}
-    .demo-item:hover{background:var(--gray-200)}
-    .app-screen{display:none;min-height:100vh}
-    .app-screen.active{display:block}
-    .header{background:var(--black);color:var(--white);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-    .header-logo{display:flex;align-items:center;gap:12px}
-    .header-logo-mark{width:32px;height:32px;border:1.5px solid var(--white);display:flex;align-items:center;justify-content:center}
-    .header-logo-mark svg{width:16px;height:16px}
-    .header-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;text-transform:uppercase}
-    .header-right{display:flex;align-items:center;gap:16px}
-    .user-info{display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--gray-900)}
-    .user-name{font-size:13px;font-weight:500}
-    .user-rig{font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 8px;background:var(--white);color:var(--black);font-weight:600}
-    .btn-logout{padding:10px 16px;background:transparent;border:1px solid var(--gray-600);color:var(--white);font-family:inherit;font-size:12px;font-weight:500;text-transform:uppercase;cursor:pointer}
-    .btn-logout:hover{background:var(--white);color:var(--black)}
+    body{font-family:'Inter',sans-serif;background:#f5f5f5;color:#171717;line-height:1.5;min-height:100vh}
+    .header{background:#000;color:#fff;padding:20px 24px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:100}
+    .header img{max-height:60px;width:auto}
     .form-container{max-width:800px;margin:0 auto;padding:32px 24px 64px}
-    .form-header{margin-bottom:32px}
-    .form-header h1{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;margin-bottom:8px}
-    .form-header p{color:var(--gray-500);font-size:14px}
-    .form-section{background:var(--white);margin-bottom:2px}
-    .section-header{padding:20px 24px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:12px}
-    .section-number{width:28px;height:28px;background:var(--black);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+    .form-header{margin-bottom:32px;text-align:center}
+    .form-header h1{font-size:28px;font-weight:700;margin-bottom:8px}
+    .form-header p{color:#737373;font-size:14px}
+    .form-section{background:#fff;margin-bottom:2px}
+    .section-header{padding:20px 24px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;gap:12px}
+    .section-number{width:28px;height:28px;background:#000;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;border-radius:4px}
     .section-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
     .section-content{padding:24px}
     .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .form-grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .form-grid.cols-4{grid-template-columns:repeat(4,1fr)}
-    .material-row{background:#fafafa;padding:16px;margin-bottom:12px}
-    .material-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;margin-bottom:12px;text-transform:uppercase}
+    .form-field{margin-bottom:0}
+    .form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#737373;margin-bottom:8px}
+    .form-input,.form-select{width:100%;padding:14px 16px;border:2px solid #e5e5e5;font-family:inherit;font-size:15px;background:#fff;border-radius:4px}
+    .form-input:focus,.form-select:focus{outline:none;border-color:#000}
+    .form-select{cursor:pointer}
+    .material-row{background:#fafafa;padding:16px;margin-bottom:12px;border-radius:4px}
+    .material-label{font-size:11px;font-weight:600;margin-bottom:12px;text-transform:uppercase}
     .material-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
     .radio-group{display:flex;gap:12px}
     .radio-option{flex:1;position:relative}
     .radio-option input{position:absolute;opacity:0}
-    .radio-option label{display:flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid var(--gray-200);cursor:pointer;font-size:14px;font-weight:500}
-    .radio-option input:checked+label{border-color:var(--black);background:var(--black);color:var(--white)}
-    .calc-box{background:#fafafa;padding:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .calc-input{width:80px;padding:12px;border:2px solid var(--gray-300);font-family:'JetBrains Mono',monospace;font-size:16px;text-align:center}
-    .calc-input:focus{outline:none;border-color:var(--black)}
-    .calc-operator{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--gray-500)}
-    .calc-label{font-size:12px;font-weight:500;color:var(--gray-600)}
-    .calc-result{padding:12px 20px;background:var(--black);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;min-width:80px;text-align:center}
+    .radio-option label{display:flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid #e5e5e5;cursor:pointer;font-size:14px;font-weight:500;border-radius:4px}
+    .radio-option input:checked+label{border-color:#000;background:#000;color:#fff}
+    .calc-box{background:#fafafa;padding:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-radius:4px}
+    .calc-input{width:80px;padding:12px;border:2px solid #d4d4d4;font-size:16px;text-align:center;border-radius:4px}
+    .calc-input:focus{outline:none;border-color:#000}
+    .calc-operator{font-size:18px;font-weight:600;color:#737373}
+    .calc-label{font-size:12px;font-weight:500;color:#525252}
+    .calc-result{padding:12px 20px;background:#000;color:#fff;font-size:18px;font-weight:600;min-width:80px;text-align:center;border-radius:4px}
     textarea.form-input{min-height:120px;resize:vertical}
-    .submit-section{background:var(--black);padding:40px;text-align:center;margin-top:32px}
-    .btn-submit{padding:20px 48px;background:var(--white);color:var(--black);border:none;font-family:inherit;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer}
+    .photo-upload{border:2px dashed #d4d4d4;padding:30px;text-align:center;border-radius:8px;cursor:pointer;transition:all .2s}
+    .photo-upload:hover{border-color:#000;background:#fafafa}
+    .photo-upload input{display:none}
+    .photo-upload-icon{font-size:40px;margin-bottom:10px}
+    .photo-upload-text{font-size:14px;color:#737373}
+    .photo-upload-text strong{color:#000}
+    .photo-previews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+    .photo-preview{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#f5f5f5}
+    .photo-preview img{width:100%;height:100%;object-fit:cover}
+    .photo-preview-remove{position:absolute;top:8px;right:8px;width:24px;height:24px;background:#000;color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+    .submit-section{background:#000;padding:40px;text-align:center;margin-top:32px;border-radius:8px}
+    .btn-submit{padding:20px 48px;background:#fff;color:#000;border:none;font-family:inherit;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;border-radius:4px}
     .btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.2)}
     .btn-submit:disabled{opacity:.5;cursor:not-allowed}
-    .submit-note{color:var(--gray-500);font-size:12px;margin-top:16px}
-    .spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--gray-300);border-top-color:var(--black);border-radius:50%;animation:spin .8s linear infinite}
+    .submit-note{color:#a3a3a3;font-size:12px;margin-top:16px}
+    .spinner{display:inline-block;width:18px;height:18px;border:2px solid #d4d4d4;border-top-color:#000;border-radius:50%;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .success-screen{display:none;min-height:100vh;background:var(--black);align-items:center;justify-content:center;padding:24px}
+    .success-screen{display:none;min-height:100vh;background:#000;align-items:center;justify-content:center;padding:24px}
     .success-screen.active{display:flex}
-    .success-card{background:var(--white);padding:48px;max-width:500px;width:100%;text-align:center}
-    .success-icon{width:80px;height:80px;border:3px solid var(--black);display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
-    .success-icon svg{width:40px;height:40px;stroke:var(--black)}
-    .success-title{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;text-transform:uppercase;margin-bottom:16px}
-    .success-text{color:var(--gray-600);font-size:14px;line-height:1.6;margin-bottom:32px}
-    .success-id{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-500);padding:12px;background:var(--gray-100);margin-bottom:24px}
-    .success-actions{display:flex;gap:12px}
-    .success-actions .btn{flex:1}
+    .success-card{background:#fff;padding:48px;max-width:500px;width:100%;text-align:center;border-radius:8px}
+    .success-icon{width:80px;height:80px;border:3px solid #000;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;border-radius:50%}
+    .success-icon svg{width:40px;height:40px;stroke:#000}
+    .success-title{font-size:24px;font-weight:700;text-transform:uppercase;margin-bottom:16px}
+    .success-text{color:#525252;font-size:14px;line-height:1.6;margin-bottom:32px}
+    .success-id{font-size:12px;color:#737373;padding:12px;background:#f5f5f5;margin-bottom:24px;border-radius:4px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 32px;font-family:inherit;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;width:100%}
+    .btn-primary{background:#000;color:#fff}
+    .btn-primary:hover{background:#262626}
     @media(max-width:768px){
-      .header{padding:16px;height:auto;flex-direction:column;gap:12px}
-      .header-right{width:100%;justify-content:space-between}
       .form-container{padding:16px}
-      .form-grid,.form-grid.cols-4,.material-grid-3{grid-template-columns:1fr}
+      .form-grid,.form-grid.cols-3,.form-grid.cols-4,.material-grid-3{grid-template-columns:1fr}
       .radio-group{flex-direction:column}
       .calc-box{flex-direction:column;align-items:stretch}
       .calc-input{width:100%}
-      .success-actions{flex-direction:column}
+      .photo-previews{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
-  <div id="loginScreen" class="login-screen">
-    <div class="login-container">
-      <div class="login-logo">
-        <div class="login-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <h1>Northern</h1>
-        <p>Spray Foam</p>
-      </div>
-      <div class="login-form">
-        <h2>Sign In</h2>
-        <div id="loginError" class="error-message"><span>Invalid username or password</span></div>
-        <form id="loginForm">
-          <div class="form-field"><label class="form-label">Username</label><input type="text" id="username" class="form-input" placeholder="Enter username" required></div>
-          <div class="form-field"><label class="form-label">Password</label><input type="password" id="password" class="form-input" placeholder="Enter password" required></div>
-          <button type="submit" class="btn btn-primary">Sign In</button>
-        </form>
-        <div class="demo-accounts">
-          <h3>Employee Accounts (click to autofill)</h3>
-          <div class="demo-grid">
-            <div class="demo-item" onclick="document.getElementById('username').value='riley';document.getElementById('password').value='Riley123'">Riley / Riley123</div>
-            <div class="demo-item" onclick="document.getElementById('username').value='josh';document.getElementById('password').value='Josh123'">Josh / Josh123</div>
-            <div class="demo-item" onclick="document.getElementById('username').value='kyle';document.getElementById('password').value='Kyle123'">Kyle / Kyle123</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="appScreen" class="app-screen">
+  <div id="mainScreen">
     <header class="header">
-      <div class="header-logo"><div class="header-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><span class="header-title">Northern Spray Foam</span></div>
-      <div class="header-right">
-        <div class="user-info"><span class="user-name" id="userName"></span><span class="user-rig" id="userRig"></span></div>
-        <button class="btn-logout" id="logoutBtn">Sign Out</button>
-      </div>
+      <img src="data:image/webp;base64,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
+6NCnkq6q/vAAAAA=" alt="Northern Spray Foam">
     </header>
     <div class="form-container">
       <div class="form-header"><h1>Daily Work Report</h1><p>Complete all fields and submit when finished</p></div>
       <form id="reportForm">
-        <div class="form-section"><div class="section-header"><div class="section-number">01</div><div class="section-title">Job Details</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">01</div><div class="section-title">Operator Info</div></div>
+          <div class="section-content"><div class="form-grid">
+            <div class="form-field"><label class="form-label">Foamer Name</label><input type="text" name="foamerName" class="form-input" placeholder="Enter your name" required></div>
+            <div class="form-field"><label class="form-label">Select Rig</label><select name="rig" class="form-select" required><option value="">-- Select Rig --</option><option value="Rig 1">Rig 1</option><option value="Rig 2">Rig 2</option><option value="Rig 3">Rig 3</option></select></div>
+          </div></div>
+        </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">02</div><div class="section-title">Job Details</div></div>
           <div class="section-content"><div class="form-grid">
             <div class="form-field"><label class="form-label">Date</label><input type="date" id="date" name="date" class="form-input" required></div>
             <div class="form-field"><label class="form-label">Time</label><input type="time" id="time" name="time" class="form-input" required></div>
@@ -151,21 +342,21 @@
             <div class="form-field"><label class="form-label">Address</label><input type="text" name="address" class="form-input" placeholder="Job site address" required></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">02</div><div class="section-title">ISO Materials</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">03</div><div class="section-title">ISO Materials</div></div>
           <div class="section-content">
             <div class="material-row"><div class="material-label">ISO 1</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso1Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso1Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso1Mfg" class="form-input"></div></div></div>
             <div class="material-row"><div class="material-label">ISO 2</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso2Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso2Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso2Mfg" class="form-input"></div></div></div>
             <div class="material-row"><div class="material-label">ISO 3</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso3Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso3Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso3Mfg" class="form-input"></div></div></div>
           </div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">03</div><div class="section-title">Resin Materials</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">04</div><div class="section-title">Resin Materials</div></div>
           <div class="section-content">
             <div class="material-row"><div class="material-label">Resin 1</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin1Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin1Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin1Mfg" class="form-input"></div></div></div>
             <div class="material-row"><div class="material-label">Resin 2</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin2Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin2Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin2Mfg" class="form-input"></div></div></div>
             <div class="material-row"><div class="material-label">Resin 3</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin3Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin3Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin3Mfg" class="form-input"></div></div></div>
           </div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">04</div><div class="section-title">Environmental Conditions</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">05</div><div class="section-title">Environmental Conditions</div></div>
           <div class="section-content"><div class="form-grid cols-4">
             <div class="form-field"><label class="form-label">Drum</label><input type="text" name="drum" class="form-input" placeholder="Drum #"></div>
             <div class="form-field"><label class="form-label">Ambient Temp</label><input type="text" name="ambientTemp" class="form-input" placeholder="e.g. 72F"></div>
@@ -173,7 +364,7 @@
             <div class="form-field"><label class="form-label">Substrate</label><input type="text" name="substrate" class="form-input" placeholder="Wood"></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">05</div><div class="section-title">Stroke Count</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">06</div><div class="section-title">Stroke Count</div></div>
           <div class="section-content"><div class="calc-box">
             <div><div class="calc-label">Stroke Count</div><input type="number" name="strokeCount" class="calc-input" id="strokeCount" placeholder="0"></div>
             <span class="calc-operator">+</span>
@@ -182,30 +373,40 @@
             <div><div class="calc-label">Total</div><input type="text" name="strokeTotal" class="calc-input" id="strokeTotal" placeholder="0"></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">06</div><div class="section-title">Test Results</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">07</div><div class="section-title">Test Results</div></div>
           <div class="section-content"><div class="calc-box">
             <div><div class="calc-label">Test (g)</div><input type="number" step="0.01" name="testG" class="calc-input" id="testG" placeholder="0"></div>
             <span class="calc-operator">/</span>
             <div><div class="calc-label">ml</div><input type="number" step="0.01" name="testMl" class="calc-input" id="testMl" placeholder="0"></div>
             <span class="calc-operator">x</span>
-            <div class="calc-result" style="background:transparent;color:var(--gray-600);font-size:16px">62.4</div>
+            <div class="calc-result" style="background:transparent;color:#525252;font-size:16px">62.4</div>
             <span class="calc-operator">=</span>
             <div class="calc-result" id="testResult">-</div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">07</div><div class="section-title">Foam Type</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">08</div><div class="section-title">Foam Type</div></div>
           <div class="section-content"><div class="radio-group">
             <div class="radio-option"><input type="radio" id="foamBASF" name="foamType" value="BASF V5"><label for="foamBASF">BASF V5</label></div>
             <div class="radio-option"><input type="radio" id="foamElastochem" name="foamType" value="Elastochem"><label for="foamElastochem">Elastochem</label></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">08</div><div class="section-title">Order Information</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">09</div><div class="section-title">Order Information</div></div>
           <div class="section-content"><div class="form-grid">
             <div class="form-field"><label class="form-label">Gillis Containers - Quote #</label><input type="text" name="gillisQuote" class="form-input" placeholder="Quote number"></div>
             <div class="form-field"><label class="form-label">Outdoor Plus - PO #</label><input type="text" name="outdoorPO" class="form-input" placeholder="PO number"></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">09</div><div class="section-title">Additional Notes</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">10</div><div class="section-title">Photos (Max 3)</div></div>
+          <div class="section-content">
+            <label class="photo-upload" id="photoUpload">
+              <input type="file" id="photoInput" accept="image/*" multiple>
+              <div class="photo-upload-icon">📷</div>
+              <div class="photo-upload-text"><strong>Click to upload photos</strong><br>Maximum 3 photos</div>
+            </label>
+            <div class="photo-previews" id="photoPreviews"></div>
+          </div>
+        </div>
+        <div class="form-section"><div class="section-header"><div class="section-number">11</div><div class="section-title">Additional Notes</div></div>
           <div class="section-content"><textarea name="notes" class="form-input" placeholder="Any additional notes..."></textarea></div>
         </div>
         <div class="submit-section">
@@ -222,29 +423,60 @@
       <h2 class="success-title">Report Submitted</h2>
       <p class="success-text" id="successMessage">Your job report has been saved.</p>
       <div class="success-id" id="successReportId"></div>
-      <div class="success-actions">
-        <button class="btn btn-primary" id="newReportBtn">New Report</button>
-        <button class="btn btn-secondary" id="successLogoutBtn">Sign Out</button>
-      </div>
+      <button class="btn btn-primary" id="newReportBtn">Submit Another Report</button>
     </div>
   </div>
 
   <script>
-    var USERS=[{id:'1',username:'riley',password:'Riley123',name:'Riley',rig:'Rig 1'},{id:'2',username:'josh',password:'Josh123',name:'Josh',rig:'Rig 3'},{id:'3',username:'kyle',password:'Kyle123',name:'Kyle',rig:'Rig 2'}];
-    var currentUser=null;
-    
-    function showScreen(s){
-      document.getElementById('loginScreen').style.display=s==='login'?'flex':'none';
-      document.getElementById('appScreen').style.display=s==='app'?'block':'none';
-      document.getElementById('appScreen').className=s==='app'?'app-screen active':'app-screen';
-      document.getElementById('successScreen').style.display=s==='success'?'flex':'none';
-      document.getElementById('successScreen').className=s==='success'?'success-screen active':'success-screen';
-    }
+    var uploadedPhotos = [];
     
     function setDateTime(){
       var n=new Date();
       document.getElementById('date').value=n.toISOString().split('T')[0];
       document.getElementById('time').value=n.toTimeString().slice(0,5);
+    }
+    setDateTime();
+    
+    document.getElementById('photoInput').addEventListener('change', function(e){
+      var files = Array.from(e.target.files);
+      if(uploadedPhotos.length + files.length > 3){
+        alert('Maximum 3 photos allowed');
+        return;
+      }
+      files.forEach(function(file){
+        if(uploadedPhotos.length >= 3) return;
+        var reader = new FileReader();
+        reader.onload = function(ev){
+          uploadedPhotos.push({name: file.name, data: ev.target.result});
+          renderPhotos();
+        };
+        reader.readAsDataURL(file);
+      });
+      e.target.value = '';
+    });
+    
+    function renderPhotos(){
+      var container = document.getElementById('photoPreviews');
+      container.innerHTML = '';
+      uploadedPhotos.forEach(function(photo, i){
+        var div = document.createElement('div');
+        div.className = 'photo-preview';
+        div.innerHTML = '<img src="'+photo.data+'" alt="Photo '+(i+1)+'"><button type="button" class="photo-preview-remove" onclick="removePhoto('+i+')">×</button>';
+        container.appendChild(div);
+      });
+    }
+    
+    function removePhoto(i){
+      uploadedPhotos.splice(i, 1);
+      renderPhotos();
+    }
+    
+    document.getElementById('testG').addEventListener('input', calcTest);
+    document.getElementById('testMl').addEventListener('input', calcTest);
+    function calcTest(){
+      var g=parseFloat(document.getElementById('testG').value)||0;
+      var ml=parseFloat(document.getElementById('testMl').value)||0;
+      document.getElementById('testResult').textContent=(g>0&&ml>0)?((g/ml)*62.4).toFixed(2):'-';
     }
     
     function generatePDF(r){
@@ -261,7 +493,7 @@
       doc.setFillColor(245,245,245);doc.rect(15,y,w-30,25,'F');
       doc.setFontSize(10);
       doc.text('Report ID: '+r.id,20,y+8);
-      doc.text('Operator: '+r.operatorName,20,y+16);
+      doc.text('Foamer: '+r.foamerName,20,y+16);
       doc.text('Rig: '+r.rig,100,y+8);
       doc.text('Submitted: '+r.submittedAt,100,y+16);
       y+=35;
@@ -269,7 +501,7 @@
         doc.setFillColor(0,0,0);doc.rect(15,y,w-30,8,'F');
         doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','bold');
         doc.text(t,20,y+6);doc.setTextColor(0,0,0);doc.setFont('helvetica','normal');y+=12;
-        items.forEach(function(i){if(y>270){doc.addPage();y=20;}doc.setFontSize(9);doc.text(i.l+':',20,y);doc.setFont('helvetica','bold');doc.text(String(i.v),70,y);doc.setFont('helvetica','normal');y+=7;});
+        items.forEach(function(i){if(y>270){doc.addPage();y=20;}doc.setFontSize(9);doc.text(i.l+':',20,y);doc.setFont('helvetica','bold');doc.text(String(i.v).substring(0,60),70,y);doc.setFont('helvetica','normal');y+=7;});
         y+=5;
       }
       addSec('JOB DETAILS',[{l:'Date',v:r.date||'N/A'},{l:'Time',v:r.time||'N/A'},{l:'Client',v:r.client||'N/A'},{l:'Address',v:r.address||'N/A'}]);
@@ -281,91 +513,52 @@
       addSec('FOAM TYPE',[{l:'Type',v:r.foamType||'Not specified'}]);
       addSec('ORDER INFO',[{l:'Gillis Quote',v:r.gillisQuote||'N/A'},{l:'Outdoor PO',v:r.outdoorPO||'N/A'}]);
       if(r.notes)addSec('NOTES',[{l:'Notes',v:r.notes}]);
+      addSec('PHOTOS',[{l:'Attached',v:r.photoCount+' photo(s)'}]);
       doc.setFillColor(0,0,0);doc.rect(0,282,w,15,'F');
       doc.setTextColor(255,255,255);doc.setFontSize(8);
       doc.text('Northern Spray Foam - Daily Work Report',w/2,290,{align:'center'});
-      var fn='DWR_'+(r.client||'Client').replace(/[^a-zA-Z0-9]/g,'_')+'_'+r.date+'_'+r.operatorName+'.pdf';
+      var fn='DWR_'+(r.client||'Client').replace(/[^a-zA-Z0-9]/g,'_')+'_'+r.date+'_'+r.foamerName.replace(/[^a-zA-Z0-9]/g,'_')+'.pdf';
       doc.save(fn);
       return fn;
-    }
-    
-    document.getElementById('loginForm').addEventListener('submit',function(e){
-      e.preventDefault();
-      var u=document.getElementById('username').value;
-      var p=document.getElementById('password').value;
-      var user=USERS.find(function(x){return x.username.toLowerCase()===u.toLowerCase()&&x.password===p;});
-      if(user){
-        currentUser=user;
-        document.getElementById('loginError').classList.remove('show');
-        document.getElementById('userName').textContent=user.name;
-        document.getElementById('userRig').textContent=user.rig;
-        document.getElementById('rigNumber').value=user.rig.replace('Rig ','');
-        setDateTime();
-        showScreen('app');
-      }else{
-        document.getElementById('loginError').classList.add('show');
-      }
-    });
-    
-    document.getElementById('logoutBtn').addEventListener('click',function(){
-      currentUser=null;
-      document.getElementById('reportForm').reset();
-      document.getElementById('username').value='';
-      document.getElementById('password').value='';
-      showScreen('login');
-    });
-    
-    document.getElementById('testG').addEventListener('input',calcTest);
-    document.getElementById('testMl').addEventListener('input',calcTest);
-    function calcTest(){
-      var g=parseFloat(document.getElementById('testG').value)||0;
-      var ml=parseFloat(document.getElementById('testMl').value)||0;
-      document.getElementById('testResult').textContent=(g>0&&ml>0)?((g/ml)*62.4).toFixed(2):'-';
     }
     
     document.getElementById('reportForm').addEventListener('submit',function(e){
       e.preventDefault();
       var btn=document.getElementById('submitBtn');
       btn.disabled=true;
-      btn.innerHTML='<span class="spinner"></span> Generating...';
+      btn.innerHTML='<span class="spinner"></span> Submitting...';
       var fd=new FormData(document.getElementById('reportForm'));
       var data={};fd.forEach(function(v,k){data[k]=v;});
       data.testResult=document.getElementById('testResult').textContent;
       var id='RPT-'+Date.now()+'-'+Math.random().toString(36).substr(2,6).toUpperCase();
-      var report={id:id,operatorName:currentUser.name,rig:currentUser.rig,submittedAt:new Date().toLocaleString()};
+      var report={id:id,foamerName:data.foamerName,rig:data.rig,submittedAt:new Date().toLocaleString(),photoCount:uploadedPhotos.length};
       for(var k in data)report[k]=data[k];
       generatePDF(report);
-      var emailData={reportId:id,operatorName:currentUser.name,rig:currentUser.rig,submittedAt:report.submittedAt,date:data.date||'N/A',time:data.time||'N/A',client:data.client||'N/A',address:data.address||'N/A',iso1Batch:data.iso1Batch||'N/A',iso1Lot:data.iso1Lot||'N/A',iso1Mfg:data.iso1Mfg||'N/A',iso2Batch:data.iso2Batch||'N/A',iso2Lot:data.iso2Lot||'N/A',iso2Mfg:data.iso2Mfg||'N/A',iso3Batch:data.iso3Batch||'N/A',iso3Lot:data.iso3Lot||'N/A',iso3Mfg:data.iso3Mfg||'N/A',resin1Batch:data.resin1Batch||'N/A',resin1Lot:data.resin1Lot||'N/A',resin1Mfg:data.resin1Mfg||'N/A',resin2Batch:data.resin2Batch||'N/A',resin2Lot:data.resin2Lot||'N/A',resin2Mfg:data.resin2Mfg||'N/A',resin3Batch:data.resin3Batch||'N/A',resin3Lot:data.resin3Lot||'N/A',resin3Mfg:data.resin3Mfg||'N/A',drum:data.drum||'N/A',ambientTemp:data.ambientTemp||'N/A',relativeHumidity:data.relativeHumidity||'N/A',substrate:data.substrate||'N/A',strokeCount:data.strokeCount||'0',rigNumber:data.rigNumber||'0',strokeTotal:data.strokeTotal||'0',testG:data.testG||'0',testMl:data.testMl||'0',testResult:data.testResult||'0',foamType:data.foamType||'Not specified',gillisQuote:data.gillisQuote||'N/A',outdoorPO:data.outdoorPO||'N/A',notes:data.notes||'None'};
+      var emailData={reportId:id,foamerName:data.foamerName,rig:data.rig,submittedAt:report.submittedAt,date:data.date||'N/A',time:data.time||'N/A',client:data.client||'N/A',address:data.address||'N/A',iso1Batch:data.iso1Batch||'N/A',iso1Lot:data.iso1Lot||'N/A',iso1Mfg:data.iso1Mfg||'N/A',iso2Batch:data.iso2Batch||'N/A',iso2Lot:data.iso2Lot||'N/A',iso2Mfg:data.iso2Mfg||'N/A',iso3Batch:data.iso3Batch||'N/A',iso3Lot:data.iso3Lot||'N/A',iso3Mfg:data.iso3Mfg||'N/A',resin1Batch:data.resin1Batch||'N/A',resin1Lot:data.resin1Lot||'N/A',resin1Mfg:data.resin1Mfg||'N/A',resin2Batch:data.resin2Batch||'N/A',resin2Lot:data.resin2Lot||'N/A',resin2Mfg:data.resin2Mfg||'N/A',resin3Batch:data.resin3Batch||'N/A',resin3Lot:data.resin3Lot||'N/A',resin3Mfg:data.resin3Mfg||'N/A',drum:data.drum||'N/A',ambientTemp:data.ambientTemp||'N/A',relativeHumidity:data.relativeHumidity||'N/A',substrate:data.substrate||'N/A',strokeCount:data.strokeCount||'0',rigNumber:data.rigNumber||'0',strokeTotal:data.strokeTotal||'0',testG:data.testG||'0',testMl:data.testMl||'0',testResult:data.testResult||'0',foamType:data.foamType||'Not specified',gillisQuote:data.gillisQuote||'N/A',outdoorPO:data.outdoorPO||'N/A',notes:data.notes||'None',photoCount:uploadedPhotos.length+' photo(s) attached to PDF'};
       emailjs.send('service_bc8id4v','template_avofqoj',emailData).then(function(){
         btn.disabled=false;btn.textContent='Submit Report';
         document.getElementById('successMessage').textContent='PDF downloaded and email sent!';
         document.getElementById('successReportId').textContent='Report ID: '+id;
-        showScreen('success');
+        document.getElementById('mainScreen').style.display='none';
+        document.getElementById('successScreen').className='success-screen active';
       },function(){
         btn.disabled=false;btn.textContent='Submit Report';
         document.getElementById('successMessage').textContent='PDF downloaded. Email failed - send PDF manually.';
         document.getElementById('successReportId').textContent='Report ID: '+id;
-        showScreen('success');
+        document.getElementById('mainScreen').style.display='none';
+        document.getElementById('successScreen').className='success-screen active';
       });
     });
     
     document.getElementById('newReportBtn').addEventListener('click',function(){
       document.getElementById('reportForm').reset();
+      uploadedPhotos = [];
+      renderPhotos();
       setDateTime();
-      document.getElementById('rigNumber').value=currentUser.rig.replace('Rig ','');
       document.getElementById('testResult').textContent='-';
-      showScreen('app');
+      document.getElementById('successScreen').className='success-screen';
+      document.getElementById('mainScreen').style.display='block';
     });
-    
-    document.getElementById('successLogoutBtn').addEventListener('click',function(){
-      currentUser=null;
-      document.getElementById('reportForm').reset();
-      document.getElementById('username').value='';
-      document.getElementById('password').value='';
-      showScreen('login');
-    });
-    
-    showScreen('login');
   </script>
 </body>
 </html>
