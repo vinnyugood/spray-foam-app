@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     (function() {
       emailjs.init("Q7vfSyGPYW9lQTux-");
@@ -1503,146 +1502,11 @@ ${report.notes || 'None'}
       showScreen('login');
     });
 
-    // Generate PDF function
-    function generatePDF(report) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      
-      const pageWidth = doc.internal.pageSize.getWidth();
-      let y = 20;
-      
-      // Header
-      doc.setFillColor(0, 0, 0);
-      doc.rect(0, 0, pageWidth, 35, 'F');
-      
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(20);
-      doc.setFont('helvetica', 'bold');
-      doc.text('NORTHERN SPRAY FOAM', pageWidth / 2, 15, { align: 'center' });
-      
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'normal');
-      doc.text('Daily Work Report', pageWidth / 2, 25, { align: 'center' });
-      
-      doc.setTextColor(0, 0, 0);
-      y = 45;
-      
-      // Report Info Box
-      doc.setFillColor(245, 245, 245);
-      doc.rect(15, y, pageWidth - 30, 25, 'F');
-      doc.setFontSize(10);
-      doc.text(`Report ID: ${report.id}`, 20, y + 8);
-      doc.text(`Operator: ${report.operatorName}`, 20, y + 16);
-      doc.text(`Rig: ${report.rig}`, 100, y + 8);
-      doc.text(`Submitted: ${report.submittedAt}`, 100, y + 16);
-      y += 35;
-      
-      // Section function
-      function addSection(title, items) {
-        // Section header
-        doc.setFillColor(0, 0, 0);
-        doc.rect(15, y, pageWidth - 30, 8, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'bold');
-        doc.text(title, 20, y + 6);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'normal');
-        y += 12;
-        
-        // Section content
-        items.forEach(item => {
-          if (y > 270) {
-            doc.addPage();
-            y = 20;
-          }
-          doc.setFontSize(9);
-          doc.text(`${item.label}:`, 20, y);
-          doc.setFont('helvetica', 'bold');
-          doc.text(`${item.value}`, 70, y);
-          doc.setFont('helvetica', 'normal');
-          y += 7;
-        });
-        y += 5;
-      }
-      
-      // Job Details
-      addSection('JOB DETAILS', [
-        { label: 'Date', value: report.date || 'N/A' },
-        { label: 'Time', value: report.time || 'N/A' },
-        { label: 'Client', value: report.client || 'N/A' },
-        { label: 'Address', value: report.address || 'N/A' },
-      ]);
-      
-      // ISO Materials
-      addSection('ISO MATERIALS', [
-        { label: 'ISO 1', value: `Batch: ${report.iso1Batch || 'N/A'} | Lot: ${report.iso1Lot || 'N/A'} | Mfg: ${report.iso1Mfg || 'N/A'}` },
-        { label: 'ISO 2', value: `Batch: ${report.iso2Batch || 'N/A'} | Lot: ${report.iso2Lot || 'N/A'} | Mfg: ${report.iso2Mfg || 'N/A'}` },
-        { label: 'ISO 3', value: `Batch: ${report.iso3Batch || 'N/A'} | Lot: ${report.iso3Lot || 'N/A'} | Mfg: ${report.iso3Mfg || 'N/A'}` },
-      ]);
-      
-      // Resin Materials
-      addSection('RESIN MATERIALS', [
-        { label: 'Resin 1', value: `Batch: ${report.resin1Batch || 'N/A'} | Lot: ${report.resin1Lot || 'N/A'} | Mfg: ${report.resin1Mfg || 'N/A'}` },
-        { label: 'Resin 2', value: `Batch: ${report.resin2Batch || 'N/A'} | Lot: ${report.resin2Lot || 'N/A'} | Mfg: ${report.resin2Mfg || 'N/A'}` },
-        { label: 'Resin 3', value: `Batch: ${report.resin3Batch || 'N/A'} | Lot: ${report.resin3Lot || 'N/A'} | Mfg: ${report.resin3Mfg || 'N/A'}` },
-      ]);
-      
-      // Environmental Conditions
-      addSection('ENVIRONMENTAL CONDITIONS', [
-        { label: 'Drum', value: report.drum || 'N/A' },
-        { label: 'Ambient Temp', value: report.ambientTemp || 'N/A' },
-        { label: 'R.H. %', value: report.relativeHumidity || 'N/A' },
-        { label: 'Substrate', value: report.substrate || 'N/A' },
-      ]);
-      
-      // Stroke Count
-      addSection('STROKE COUNT', [
-        { label: 'Calculation', value: `${report.strokeCount || '0'} + Rig #(${report.rigNumber || '0'}) = ${report.strokeTotal || '0'}` },
-      ]);
-      
-      // Test Results
-      addSection('TEST RESULTS', [
-        { label: 'Calculation', value: `${report.testG || '0'}g / ${report.testMl || '0'}ml × 62.4 = ${report.testResult || '0'}` },
-      ]);
-      
-      // Foam Type
-      addSection('FOAM TYPE', [
-        { label: 'Type', value: report.foamType || 'Not specified' },
-      ]);
-      
-      // Order Information
-      addSection('ORDER INFORMATION', [
-        { label: 'Gillis Quote #', value: report.gillisQuote || 'N/A' },
-        { label: 'Outdoor Plus PO #', value: report.outdoorPO || 'N/A' },
-      ]);
-      
-      // Notes
-      if (report.notes) {
-        addSection('ADDITIONAL NOTES', [
-          { label: 'Notes', value: report.notes },
-        ]);
-      }
-      
-      // Footer
-      doc.setFillColor(0, 0, 0);
-      doc.rect(0, 282, pageWidth, 15, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(8);
-      doc.text('Northern Spray Foam - Daily Work Report', pageWidth / 2, 290, { align: 'center' });
-      
-      // Save PDF
-      const fileName = `DWR_${report.client.replace(/[^a-zA-Z0-9]/g, '_')}_${report.date}_${report.operatorName}.pdf`;
-      doc.save(fileName);
-      
-      return fileName;
-    }
-
     reportForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span> Generating Report...';
+      submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
 
       const data = getFormData();
       const reportId = generateReportId();
@@ -1659,9 +1523,6 @@ ${report.notes || 'None'}
       // Save to localStorage
       reports.push(report);
       localStorage.setItem('sprayfoam_reports', JSON.stringify(reports));
-
-      // Generate and download PDF
-      const pdfFileName = generatePDF(report);
 
       // Prepare email data for EmailJS
       const emailData = {
@@ -1705,7 +1566,6 @@ ${report.notes || 'None'}
         gillisQuote: report.gillisQuote || 'N/A',
         outdoorPO: report.outdoorPO || 'N/A',
         notes: report.notes || 'None',
-        pdfFileName: pdfFileName,
       };
 
       // Send email via EmailJS
@@ -1715,7 +1575,7 @@ ${report.notes || 'None'}
           submitBtn.disabled = false;
           submitBtn.textContent = 'Submit Report';
           
-          successMessage.textContent = 'Your job report PDF has been downloaded and email notification sent to simon.leveille@northernsprayfoam.ca!';
+          successMessage.textContent = 'Your job report has been saved and emailed to simon.leveille@northernsprayfoam.ca successfully!';
           successReportId.textContent = `Report ID: ${reportId}`;
           
           showScreen('success');
@@ -1724,7 +1584,8 @@ ${report.notes || 'None'}
           submitBtn.disabled = false;
           submitBtn.textContent = 'Submit Report';
           
-          successMessage.textContent = 'Your job report PDF has been downloaded. Email notification failed - please send the PDF manually.';
+          // Still show success but mention email issue
+          successMessage.textContent = 'Your job report has been saved locally, but the email failed to send. Please try again or contact admin.';
           successReportId.textContent = `Report ID: ${reportId}`;
           
           showScreen('success');
