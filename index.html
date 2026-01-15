@@ -864,7 +864,7 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Fo
         </div>
         <div class="submit-section">
           <button type="submit" class="btn-submit" id="submitBtn">Submit Report</button>
-          <p class="submit-note">PDF will download and email sent to simon.leveille@northernsprayfoam.ca</p>
+          <p class="submit-note">PDF will download and email sent to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="16657f7b7978387a7360737f7a7a7356787964627e736478656664776f7079777b387577">[email&#160;protected]</a></p>
         </div>
       </form>
     </div>
@@ -881,7 +881,7 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Fo
     </div>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Employee accounts
     var USERS = [
       { username: 'Josh1', password: 'Josh123!', name: 'Josh' },
@@ -1006,7 +1006,22 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Fo
       doc.setTextColor(255,255,255);doc.setFontSize(8);
       doc.text('Northern Spray Foam - Daily Work Report',w/2,290,{align:'center'});
       var fn='DWR_'+(r.client||'Client').replace(/[^a-zA-Z0-9]/g,'_')+'_'+r.date+'_'+r.foamerName.replace(/[^a-zA-Z0-9]/g,'_')+'.pdf';
-      doc.save(fn);
+      
+      // Safari/iOS compatible download
+      try {
+        var pdfBlob = doc.output('blob');
+        var blobUrl = URL.createObjectURL(pdfBlob);
+        var link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fn;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      } catch(e) {
+        // Fallback for older browsers
+        doc.save(fn);
+      }
       return fn;
     }
     
@@ -1084,7 +1099,12 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Fo
         outdoorPO:data.outdoorPO||'N/A',
         notes:data.notes||'None'
       };
-      generatePDF(report);
+      try {
+        generatePDF(report);
+      } catch(pdfError) {
+        console.log('PDF generation failed:', pdfError);
+        // Continue to send email even if PDF fails
+      }
       var emailData={
         reportId:id,
         foamerName:report.foamerName,
@@ -1124,15 +1144,19 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Fo
         photoCount:report.photoCount+' photo(s)',
         htmlContent:generateHTMLEmail(report)
       };
-      emailjs.send('service_bc8id4v','template_avofqoj',emailData).then(function(){
+      console.log('Sending email with data:', emailData);
+      emailjs.send('service_bc8id4v','template_avofqoj',emailData).then(function(response){
+        console.log('Email SUCCESS:', response);
         btn.disabled=false;btn.textContent='Submit Report';
         document.getElementById('successMessage').textContent='PDF downloaded and email sent!';
         document.getElementById('successReportId').textContent='Report ID: '+id;
         document.getElementById('mainScreen').classList.add('hidden');
         document.getElementById('successScreen').className='success-screen active';
-      },function(){
+      },function(error){
+        console.log('Email FAILED:', error);
+        alert('Email Error: ' + JSON.stringify(error));
         btn.disabled=false;btn.textContent='Submit Report';
-        document.getElementById('successMessage').textContent='PDF downloaded. Email failed - send PDF manually.';
+        document.getElementById('successMessage').textContent='PDF downloaded. Email failed: ' + (error.text || 'Unknown error');
         document.getElementById('successReportId').textContent='Report ID: '+id;
         document.getElementById('mainScreen').classList.add('hidden');
         document.getElementById('successScreen').className='success-screen active';
@@ -1142,12 +1166,4 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Fo
     document.getElementById('newReportBtn').addEventListener('click',function(){
       document.getElementById('reportForm').reset();
       document.getElementById('foamerName').value = currentUser.name;
-      uploadedPhotos = [];
-      renderPhotos();
-      setDateTime();
-      document.getElementById('successScreen').className='success-screen';
-      document.getElementById('mainScreen').classList.remove('hidden');
-    });
-  </script>
-</body>
-</html>
+      u
