@@ -39,11 +39,9 @@
     .radio-option label{display:flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid #e5e5e5;cursor:pointer;font-size:14px;font-weight:500;border-radius:4px}
     .radio-option input:checked+label{border-color:#000;background:#000;color:#fff}
     .calc-box{background:#fafafa;padding:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-radius:4px}
-    .calc-input{width:80px;padding:12px;border:2px solid #d4d4d4;font-size:16px;text-align:center;border-radius:4px}
+    .calc-input{width:120px;padding:12px;border:2px solid #d4d4d4;font-size:16px;text-align:center;border-radius:4px}
     .calc-input:focus{outline:none;border-color:#000}
-    .calc-operator{font-size:18px;font-weight:600;color:#737373}
     .calc-label{font-size:12px;font-weight:500;color:#525252}
-    .calc-result{padding:12px 20px;background:#000;color:#fff;font-size:18px;font-weight:600;min-width:80px;text-align:center;border-radius:4px}
     textarea.form-input{min-height:120px;resize:vertical}
     .photo-upload{border:2px dashed #d4d4d4;padding:30px;text-align:center;border-radius:8px;cursor:pointer;transition:all .2s}
     .photo-upload:hover{border-color:#000;background:#fafafa}
@@ -331,7 +329,7 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
         <div class="form-section"><div class="section-header"><div class="section-number">01</div><div class="section-title">Operator Info</div></div>
           <div class="section-content"><div class="form-grid">
             <div class="form-field"><label class="form-label">Foamer Name</label><input type="text" name="foamerName" class="form-input" placeholder="Enter your name" required></div>
-            <div class="form-field"><label class="form-label">Select Rig</label><select name="rig" class="form-select" required><option value="">-- Select Rig --</option><option value="Rig 1">Rig 1</option><option value="Rig 2">Rig 2</option><option value="Rig 3">Rig 3</option></select></div>
+            <div class="form-field"><label class="form-label">Select Rig</label><select name="rig" class="form-select" required><option value="">-- Select Rig --</option><option value="Rig 1">Rig 1</option><option value="Rig 2">Rig 2</option><option value="Rig 3">Rig 3</option><option value="Rig 4">Rig 4</option></select></div>
           </div></div>
         </div>
         <div class="form-section"><div class="section-header"><div class="section-number">02</div><div class="section-title">Job Details</div></div>
@@ -366,37 +364,22 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
         </div>
         <div class="form-section"><div class="section-header"><div class="section-number">06</div><div class="section-title">Stroke Count</div></div>
           <div class="section-content"><div class="calc-box">
-            <div><div class="calc-label">Stroke Count</div><input type="number" name="strokeCount" class="calc-input" id="strokeCount" placeholder="0"></div>
-            <span class="calc-operator">+</span>
-            <div><div class="calc-label">Rig #</div><input type="text" name="rigNumber" class="calc-input" id="rigNumber" placeholder="1"></div>
-            <span class="calc-operator">=</span>
-            <div><div class="calc-label">Total</div><input type="text" name="strokeTotal" class="calc-input" id="strokeTotal" placeholder="0"></div>
+            <div><div class="calc-label">Stroke Count</div><input type="number" name="strokeCount" class="calc-input" placeholder="Enter count"></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">07</div><div class="section-title">Test Results</div></div>
-          <div class="section-content"><div class="calc-box">
-            <div><div class="calc-label">Test (g)</div><input type="number" step="0.01" name="testG" class="calc-input" id="testG" placeholder="0"></div>
-            <span class="calc-operator">/</span>
-            <div><div class="calc-label">ml</div><input type="number" step="0.01" name="testMl" class="calc-input" id="testMl" placeholder="0"></div>
-            <span class="calc-operator">x</span>
-            <div class="calc-result" style="background:transparent;color:#525252;font-size:16px">62.4</div>
-            <span class="calc-operator">=</span>
-            <div class="calc-result" id="testResult">-</div>
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">08</div><div class="section-title">Foam Type</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">07</div><div class="section-title">Foam Type</div></div>
           <div class="section-content"><div class="radio-group">
             <div class="radio-option"><input type="radio" id="foamBASF" name="foamType" value="BASF V5"><label for="foamBASF">BASF V5</label></div>
             <div class="radio-option"><input type="radio" id="foamElastochem" name="foamType" value="Elastochem"><label for="foamElastochem">Elastochem</label></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">09</div><div class="section-title">Order Information</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">08</div><div class="section-title">Order Information</div></div>
           <div class="section-content"><div class="form-grid">
             <div class="form-field"><label class="form-label">Gillis Containers - Quote #</label><input type="text" name="gillisQuote" class="form-input" placeholder="Quote number"></div>
             <div class="form-field"><label class="form-label">Outdoor Plus - PO #</label><input type="text" name="outdoorPO" class="form-input" placeholder="PO number"></div>
           </div></div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">10</div><div class="section-title">Photos (Max 3)</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">09</div><div class="section-title">Photos (Max 3)</div></div>
           <div class="section-content">
             <label class="photo-upload" id="photoUpload">
               <input type="file" id="photoInput" accept="image/*" multiple>
@@ -406,7 +389,7 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
             <div class="photo-previews" id="photoPreviews"></div>
           </div>
         </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">11</div><div class="section-title">Additional Notes</div></div>
+        <div class="form-section"><div class="section-header"><div class="section-number">10</div><div class="section-title">Additional Notes</div></div>
           <div class="section-content"><textarea name="notes" class="form-input" placeholder="Any additional notes..."></textarea></div>
         </div>
         <div class="submit-section">
@@ -471,14 +454,6 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
       renderPhotos();
     }
     
-    document.getElementById('testG').addEventListener('input', calcTest);
-    document.getElementById('testMl').addEventListener('input', calcTest);
-    function calcTest(){
-      var g=parseFloat(document.getElementById('testG').value)||0;
-      var ml=parseFloat(document.getElementById('testMl').value)||0;
-      document.getElementById('testResult').textContent=(g>0&&ml>0)?((g/ml)*62.4).toFixed(2):'-';
-    }
-    
     function generatePDF(r){
       var jsPDF=window.jspdf.jsPDF;
       var doc=new jsPDF();
@@ -508,8 +483,7 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
       addSec('ISO MATERIALS',[{l:'ISO 1',v:'Batch: '+(r.iso1Batch||'N/A')+' | Lot: '+(r.iso1Lot||'N/A')+' | Mfg: '+(r.iso1Mfg||'N/A')},{l:'ISO 2',v:'Batch: '+(r.iso2Batch||'N/A')+' | Lot: '+(r.iso2Lot||'N/A')+' | Mfg: '+(r.iso2Mfg||'N/A')},{l:'ISO 3',v:'Batch: '+(r.iso3Batch||'N/A')+' | Lot: '+(r.iso3Lot||'N/A')+' | Mfg: '+(r.iso3Mfg||'N/A')}]);
       addSec('RESIN MATERIALS',[{l:'Resin 1',v:'Batch: '+(r.resin1Batch||'N/A')+' | Lot: '+(r.resin1Lot||'N/A')+' | Mfg: '+(r.resin1Mfg||'N/A')},{l:'Resin 2',v:'Batch: '+(r.resin2Batch||'N/A')+' | Lot: '+(r.resin2Lot||'N/A')+' | Mfg: '+(r.resin2Mfg||'N/A')},{l:'Resin 3',v:'Batch: '+(r.resin3Batch||'N/A')+' | Lot: '+(r.resin3Lot||'N/A')+' | Mfg: '+(r.resin3Mfg||'N/A')}]);
       addSec('ENVIRONMENTAL',[{l:'Drum',v:r.drum||'N/A'},{l:'Ambient Temp',v:r.ambientTemp||'N/A'},{l:'R.H. %',v:r.relativeHumidity||'N/A'},{l:'Substrate',v:r.substrate||'N/A'}]);
-      addSec('STROKE COUNT',[{l:'Calculation',v:(r.strokeCount||'0')+' + Rig #('+(r.rigNumber||'0')+') = '+(r.strokeTotal||'0')}]);
-      addSec('TEST RESULTS',[{l:'Calculation',v:(r.testG||'0')+'g / '+(r.testMl||'0')+'ml x 62.4 = '+(r.testResult||'0')}]);
+      addSec('STROKE COUNT',[{l:'Count',v:r.strokeCount||'N/A'}]);
       addSec('FOAM TYPE',[{l:'Type',v:r.foamType||'Not specified'}]);
       addSec('ORDER INFO',[{l:'Gillis Quote',v:r.gillisQuote||'N/A'},{l:'Outdoor PO',v:r.outdoorPO||'N/A'}]);
       if(r.notes)addSec('NOTES',[{l:'Notes',v:r.notes}]);
@@ -522,6 +496,34 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
       return fn;
     }
     
+    function generateHTMLEmail(r){
+      return '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f5f5f5;padding:20px;">' +
+        '<div style="background:#000;color:#fff;padding:20px;text-align:center;"><h1 style="margin:0;font-size:24px;">NORTHERN SPRAY FOAM</h1><p style="margin:5px 0 0;font-size:14px;">Daily Work Report</p></div>' +
+        '<div style="background:#fff;padding:20px;margin-top:2px;">' +
+          '<div style="background:#f5f5f5;padding:15px;margin-bottom:15px;border-radius:4px;"><strong>Report ID:</strong> '+r.id+'<br><strong>Foamer:</strong> '+r.foamerName+'<br><strong>Rig:</strong> '+r.rig+'<br><strong>Submitted:</strong> '+r.submittedAt+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Job Details</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Date:</strong> '+r.date+'<br><strong>Time:</strong> '+r.time+'<br><strong>Client:</strong> '+r.client+'<br><strong>Address:</strong> '+r.address+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">ISO Materials</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>ISO 1:</strong> Batch: '+r.iso1Batch+' | Lot: '+r.iso1Lot+' | Mfg: '+r.iso1Mfg+'<br><strong>ISO 2:</strong> Batch: '+r.iso2Batch+' | Lot: '+r.iso2Lot+' | Mfg: '+r.iso2Mfg+'<br><strong>ISO 3:</strong> Batch: '+r.iso3Batch+' | Lot: '+r.iso3Lot+' | Mfg: '+r.iso3Mfg+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Resin Materials</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Resin 1:</strong> Batch: '+r.resin1Batch+' | Lot: '+r.resin1Lot+' | Mfg: '+r.resin1Mfg+'<br><strong>Resin 2:</strong> Batch: '+r.resin2Batch+' | Lot: '+r.resin2Lot+' | Mfg: '+r.resin2Mfg+'<br><strong>Resin 3:</strong> Batch: '+r.resin3Batch+' | Lot: '+r.resin3Lot+' | Mfg: '+r.resin3Mfg+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Environmental Conditions</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Drum:</strong> '+r.drum+' | <strong>Ambient Temp:</strong> '+r.ambientTemp+' | <strong>R.H.:</strong> '+r.relativeHumidity+'% | <strong>Substrate:</strong> '+r.substrate+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Stroke Count</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Count:</strong> '+r.strokeCount+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Foam Type</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Type:</strong> '+r.foamType+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Order Information</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Gillis Containers Quote #:</strong> '+r.gillisQuote+'<br><strong>Outdoor Plus PO #:</strong> '+r.outdoorPO+'</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Photos</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Attached:</strong> '+r.photoCount+' photo(s)</div>' +
+          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;text-transform:uppercase;">Additional Notes</div>' +
+          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;">'+r.notes+'</div>' +
+        '</div>' +
+        '<div style="background:#000;color:#fff;padding:10px;text-align:center;font-size:11px;margin-top:2px;">Northern Spray Foam - Daily Work Report</div>' +
+      '</div>';
+    }
+    
     document.getElementById('reportForm').addEventListener('submit',function(e){
       e.preventDefault();
       var btn=document.getElementById('submitBtn');
@@ -529,12 +531,85 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
       btn.innerHTML='<span class="spinner"></span> Submitting...';
       var fd=new FormData(document.getElementById('reportForm'));
       var data={};fd.forEach(function(v,k){data[k]=v;});
-      data.testResult=document.getElementById('testResult').textContent;
       var id='RPT-'+Date.now()+'-'+Math.random().toString(36).substr(2,6).toUpperCase();
-      var report={id:id,foamerName:data.foamerName,rig:data.rig,submittedAt:new Date().toLocaleString(),photoCount:uploadedPhotos.length};
-      for(var k in data)report[k]=data[k];
+      var report={
+        id:id,
+        foamerName:data.foamerName||'N/A',
+        rig:data.rig||'N/A',
+        submittedAt:new Date().toLocaleString(),
+        photoCount:uploadedPhotos.length,
+        date:data.date||'N/A',
+        time:data.time||'N/A',
+        client:data.client||'N/A',
+        address:data.address||'N/A',
+        iso1Batch:data.iso1Batch||'N/A',
+        iso1Lot:data.iso1Lot||'N/A',
+        iso1Mfg:data.iso1Mfg||'N/A',
+        iso2Batch:data.iso2Batch||'N/A',
+        iso2Lot:data.iso2Lot||'N/A',
+        iso2Mfg:data.iso2Mfg||'N/A',
+        iso3Batch:data.iso3Batch||'N/A',
+        iso3Lot:data.iso3Lot||'N/A',
+        iso3Mfg:data.iso3Mfg||'N/A',
+        resin1Batch:data.resin1Batch||'N/A',
+        resin1Lot:data.resin1Lot||'N/A',
+        resin1Mfg:data.resin1Mfg||'N/A',
+        resin2Batch:data.resin2Batch||'N/A',
+        resin2Lot:data.resin2Lot||'N/A',
+        resin2Mfg:data.resin2Mfg||'N/A',
+        resin3Batch:data.resin3Batch||'N/A',
+        resin3Lot:data.resin3Lot||'N/A',
+        resin3Mfg:data.resin3Mfg||'N/A',
+        drum:data.drum||'N/A',
+        ambientTemp:data.ambientTemp||'N/A',
+        relativeHumidity:data.relativeHumidity||'N/A',
+        substrate:data.substrate||'N/A',
+        strokeCount:data.strokeCount||'N/A',
+        foamType:data.foamType||'Not specified',
+        gillisQuote:data.gillisQuote||'N/A',
+        outdoorPO:data.outdoorPO||'N/A',
+        notes:data.notes||'None'
+      };
       generatePDF(report);
-      var emailData={reportId:id,foamerName:data.foamerName,rig:data.rig,submittedAt:report.submittedAt,date:data.date||'N/A',time:data.time||'N/A',client:data.client||'N/A',address:data.address||'N/A',iso1Batch:data.iso1Batch||'N/A',iso1Lot:data.iso1Lot||'N/A',iso1Mfg:data.iso1Mfg||'N/A',iso2Batch:data.iso2Batch||'N/A',iso2Lot:data.iso2Lot||'N/A',iso2Mfg:data.iso2Mfg||'N/A',iso3Batch:data.iso3Batch||'N/A',iso3Lot:data.iso3Lot||'N/A',iso3Mfg:data.iso3Mfg||'N/A',resin1Batch:data.resin1Batch||'N/A',resin1Lot:data.resin1Lot||'N/A',resin1Mfg:data.resin1Mfg||'N/A',resin2Batch:data.resin2Batch||'N/A',resin2Lot:data.resin2Lot||'N/A',resin2Mfg:data.resin2Mfg||'N/A',resin3Batch:data.resin3Batch||'N/A',resin3Lot:data.resin3Lot||'N/A',resin3Mfg:data.resin3Mfg||'N/A',drum:data.drum||'N/A',ambientTemp:data.ambientTemp||'N/A',relativeHumidity:data.relativeHumidity||'N/A',substrate:data.substrate||'N/A',strokeCount:data.strokeCount||'0',rigNumber:data.rigNumber||'0',strokeTotal:data.strokeTotal||'0',testG:data.testG||'0',testMl:data.testMl||'0',testResult:data.testResult||'0',foamType:data.foamType||'Not specified',gillisQuote:data.gillisQuote||'N/A',outdoorPO:data.outdoorPO||'N/A',notes:data.notes||'None',photoCount:uploadedPhotos.length+' photo(s) attached to PDF'};
+      var emailData={
+        reportId:id,
+        foamerName:report.foamerName,
+        rig:report.rig,
+        submittedAt:report.submittedAt,
+        date:report.date,
+        time:report.time,
+        client:report.client,
+        address:report.address,
+        iso1Batch:report.iso1Batch,
+        iso1Lot:report.iso1Lot,
+        iso1Mfg:report.iso1Mfg,
+        iso2Batch:report.iso2Batch,
+        iso2Lot:report.iso2Lot,
+        iso2Mfg:report.iso2Mfg,
+        iso3Batch:report.iso3Batch,
+        iso3Lot:report.iso3Lot,
+        iso3Mfg:report.iso3Mfg,
+        resin1Batch:report.resin1Batch,
+        resin1Lot:report.resin1Lot,
+        resin1Mfg:report.resin1Mfg,
+        resin2Batch:report.resin2Batch,
+        resin2Lot:report.resin2Lot,
+        resin2Mfg:report.resin2Mfg,
+        resin3Batch:report.resin3Batch,
+        resin3Lot:report.resin3Lot,
+        resin3Mfg:report.resin3Mfg,
+        drum:report.drum,
+        ambientTemp:report.ambientTemp,
+        relativeHumidity:report.relativeHumidity,
+        substrate:report.substrate,
+        strokeCount:report.strokeCount,
+        foamType:report.foamType,
+        gillisQuote:report.gillisQuote,
+        outdoorPO:report.outdoorPO,
+        notes:report.notes,
+        photoCount:report.photoCount+' photo(s)',
+        htmlContent:generateHTMLEmail(report)
+      };
       emailjs.send('service_bc8id4v','template_avofqoj',emailData).then(function(){
         btn.disabled=false;btn.textContent='Submit Report';
         document.getElementById('successMessage').textContent='PDF downloaded and email sent!';
@@ -555,7 +630,6 @@ EFEe/+/46L9Rqv8TdmFWjKETu0uQ9ReIER8t91+AaXuKdAJaRsUbvxTwhJqy3731FTitfLKtpegc
       uploadedPhotos = [];
       renderPhotos();
       setDateTime();
-      document.getElementById('testResult').textContent='-';
       document.getElementById('successScreen').className='success-screen';
       document.getElementById('mainScreen').style.display='block';
     });
