@@ -9,96 +9,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>emailjs.init("Q7vfSyGPYW9lQTux-");</script>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:#f5f5f5;color:#171717;line-height:1.5;min-height:100vh}
-    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;padding:20px}
-    .login-container{width:100%;max-width:400px}
-    .login-logo{text-align:center;margin-bottom:40px}
-    .login-logo img{max-width:280px;height:auto}
-    .login-form-box{background:#fff;padding:40px;border-radius:8px}
-    .login-form-box h2{font-size:18px;font-weight:600;margin-bottom:24px;text-align:center}
-    .form-field{margin-bottom:20px}
-    .form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#737373;margin-bottom:8px}
-    .form-input,.form-select{width:100%;padding:14px 16px;border:2px solid #e5e5e5;font-family:inherit;font-size:15px;background:#fff;border-radius:4px}
-    .form-input:focus,.form-select:focus{outline:none;border-color:#000}
-    .btn-login{width:100%;padding:16px;background:#000;color:#fff;border:none;font-family:inherit;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;cursor:pointer;border-radius:4px}
-    .btn-login:hover{background:#222}
-    .login-error{background:#fee;color:#c00;padding:12px;border-radius:4px;margin-bottom:20px;font-size:14px;display:none;text-align:center}
-    .login-error.show{display:block}
-    .header{background:#000;color:#fff;padding:15px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-    .header img{max-height:45px;width:auto}
-    .header-right{display:flex;align-items:center;gap:15px}
-    .user-badge{background:#222;padding:8px 14px;border-radius:4px;font-size:13px}
-    .btn-logout{padding:8px 16px;background:transparent;border:1px solid #555;color:#fff;font-size:12px;cursor:pointer;border-radius:4px}
-    .btn-logout:hover{background:#fff;color:#000}
-    .form-container{max-width:800px;margin:0 auto;padding:32px 24px 64px}
-    .form-header{margin-bottom:32px;text-align:center}
-    .form-header h1{font-size:28px;font-weight:700;margin-bottom:8px}
-    .form-header p{color:#737373;font-size:14px}
-    .form-section{background:#fff;margin-bottom:2px}
-    .section-header{padding:20px 24px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;gap:12px}
-    .section-number{width:28px;height:28px;background:#000;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;border-radius:4px}
-    .section-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-    .section-content{padding:24px}
-    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .form-grid.cols-4{grid-template-columns:repeat(4,1fr)}
-    .form-select{cursor:pointer}
-    .material-row{background:#fafafa;padding:16px;margin-bottom:12px;border-radius:4px}
-    .material-label{font-size:11px;font-weight:600;margin-bottom:12px;text-transform:uppercase}
-    .material-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-    .radio-group{display:flex;gap:12px}
-    .radio-option{flex:1;position:relative}
-    .radio-option input{position:absolute;opacity:0}
-    .radio-option label{display:flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid #e5e5e5;cursor:pointer;font-size:14px;font-weight:500;border-radius:4px}
-    .radio-option input:checked+label{border-color:#000;background:#000;color:#fff}
-    .calc-box{background:#fafafa;padding:20px;border-radius:4px}
-    .calc-input{width:120px;padding:12px;border:2px solid #d4d4d4;font-size:16px;text-align:center;border-radius:4px}
-    .calc-input:focus{outline:none;border-color:#000}
-    .calc-label{font-size:12px;font-weight:500;color:#525252;margin-bottom:8px}
-    textarea.form-input{min-height:120px;resize:vertical}
-    .photo-upload{border:2px dashed #d4d4d4;padding:30px;text-align:center;border-radius:8px;cursor:pointer}
-    .photo-upload:hover{border-color:#000;background:#fafafa}
-    .photo-upload input{display:none}
-    .photo-upload-icon{font-size:40px;margin-bottom:10px}
-    .photo-upload-text{font-size:14px;color:#737373}
-    .photo-upload-text strong{color:#000}
-    .photo-previews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-    .photo-preview{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#f5f5f5}
-    .photo-preview img{width:100%;height:100%;object-fit:cover}
-    .photo-preview-remove{position:absolute;top:8px;right:8px;width:24px;height:24px;background:#000;color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:14px}
-    .submit-section{background:#000;padding:40px;text-align:center;margin-top:32px;border-radius:8px}
-    .btn-submit{padding:20px 48px;background:#fff;color:#000;border:none;font-family:inherit;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;border-radius:4px}
-    .btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.2)}
-    .btn-submit:disabled{opacity:.5;cursor:not-allowed}
-    .submit-note{color:#a3a3a3;font-size:12px;margin-top:16px}
-    .spinner{display:inline-block;width:18px;height:18px;border:2px solid #d4d4d4;border-top-color:#000;border-radius:50%;animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .success-screen{display:none;min-height:100vh;background:#000;align-items:center;justify-content:center;padding:24px}
-    .success-screen.active{display:flex}
-    .success-card{background:#fff;padding:48px;max-width:500px;width:100%;text-align:center;border-radius:8px}
-    .success-icon{width:80px;height:80px;border:3px solid #000;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;border-radius:50%}
-    .success-icon svg{width:40px;height:40px;stroke:#000}
-    .success-title{font-size:24px;font-weight:700;text-transform:uppercase;margin-bottom:16px}
-    .success-text{color:#525252;font-size:14px;line-height:1.6;margin-bottom:32px}
-    .success-id{font-size:12px;color:#737373;padding:12px;background:#f5f5f5;margin-bottom:24px;border-radius:4px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 32px;font-family:inherit;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;width:100%}
-    .btn-primary{background:#000;color:#fff}
-    .btn-primary:hover{background:#262626}
-    .hidden{display:none!important}
-    @media(max-width:768px){
-      .header{flex-direction:column;gap:10px;padding:15px}
-      .form-container{padding:16px}
-      .form-grid,.form-grid.cols-4,.material-grid-3{grid-template-columns:1fr}
-      .radio-group{flex-direction:column}
-      .photo-previews{grid-template-columns:1fr}
-    }
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#f5f5f5;color:#171717;line-height:1.5;min-height:100vh}.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;padding:20px}.login-container{width:100%;max-width:400px}.login-logo{text-align:center;margin-bottom:40px}.login-logo img{max-width:280px;height:auto}.login-box{background:#fff;padding:40px;border-radius:8px}.login-box h2{font-size:18px;font-weight:600;margin-bottom:24px;text-align:center}.field{margin-bottom:20px}.label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#737373;margin-bottom:8px}.input{width:100%;padding:14px 16px;border:2px solid #e5e5e5;font-family:inherit;font-size:15px;background:#fff;border-radius:4px}.input:focus{outline:none;border-color:#000}.btn-login{width:100%;padding:16px;background:#000;color:#fff;border:none;font-family:inherit;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;cursor:pointer;border-radius:4px}.btn-login:hover{background:#222}.error{background:#fee;color:#c00;padding:12px;border-radius:4px;margin-bottom:20px;font-size:14px;display:none;text-align:center}.error.show{display:block}.header{background:#000;color:#fff;padding:15px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}.header img{max-height:45px;width:auto}.header-right{display:flex;align-items:center;gap:15px}.user-badge{background:#222;padding:8px 14px;border-radius:4px;font-size:13px}.btn-logout{padding:8px 16px;background:transparent;border:1px solid #555;color:#fff;font-size:12px;cursor:pointer;border-radius:4px}.btn-logout:hover{background:#fff;color:#000}.container{max-width:800px;margin:0 auto;padding:32px 24px 64px}.form-header{margin-bottom:32px;text-align:center}.form-header h1{font-size:28px;font-weight:700;margin-bottom:8px}.form-header p{color:#737373;font-size:14px}.section{background:#fff;margin-bottom:2px}.section-head{padding:20px 24px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;gap:12px}.section-num{width:28px;height:28px;background:#000;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;border-radius:4px}.section-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.section-body{padding:24px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.select{width:100%;padding:14px 16px;border:2px solid #e5e5e5;font-family:inherit;font-size:15px;background:#fff;border-radius:4px;cursor:pointer}.select:focus{outline:none;border-color:#000}.mat-row{background:#fafafa;padding:16px;margin-bottom:12px;border-radius:4px}.mat-label{font-size:11px;font-weight:600;margin-bottom:12px;text-transform:uppercase}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.radio-group{display:flex;gap:12px}.radio-opt{flex:1;position:relative}.radio-opt input{position:absolute;opacity:0}.radio-opt label{display:flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid #e5e5e5;cursor:pointer;font-size:14px;font-weight:500;border-radius:4px}.radio-opt input:checked+label{border-color:#000;background:#000;color:#fff}.calc-box{background:#fafafa;padding:20px;border-radius:4px}.calc-input{width:120px;padding:12px;border:2px solid #d4d4d4;font-size:16px;text-align:center;border-radius:4px}.calc-input:focus{outline:none;border-color:#000}.calc-label{font-size:12px;font-weight:500;color:#525252;margin-bottom:8px}textarea.input{min-height:120px;resize:vertical}.photo-upload{border:2px dashed #d4d4d4;padding:30px;text-align:center;border-radius:8px;cursor:pointer}.photo-upload:hover{border-color:#000;background:#fafafa}.photo-upload input{display:none}.photo-icon{font-size:40px;margin-bottom:10px}.photo-text{font-size:14px;color:#737373}.photo-text strong{color:#000}.previews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.preview{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#f5f5f5}.preview img{width:100%;height:100%;object-fit:cover}.preview-remove{position:absolute;top:8px;right:8px;width:24px;height:24px;background:#000;color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:14px}.submit-section{background:#000;padding:40px;text-align:center;margin-top:32px;border-radius:8px}.btn-submit{padding:20px 48px;background:#fff;color:#000;border:none;font-family:inherit;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;border-radius:4px}.btn-submit:hover:not(:disabled){transform:translateY(-2px)}.btn-submit:disabled{opacity:.5;cursor:not-allowed}.submit-note{color:#a3a3a3;font-size:12px;margin-top:16px}.spinner{display:inline-block;width:18px;height:18px;border:2px solid #d4d4d4;border-top-color:#000;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.success{display:none;min-height:100vh;background:#000;align-items:center;justify-content:center;padding:24px}.success.active{display:flex}.success-card{background:#fff;padding:48px;max-width:500px;width:100%;text-align:center;border-radius:8px}.success-icon{width:80px;height:80px;border:3px solid #000;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;border-radius:50%}.success-icon svg{width:40px;height:40px;stroke:#000}.success-title{font-size:24px;font-weight:700;text-transform:uppercase;margin-bottom:16px}.success-text{color:#525252;font-size:14px;line-height:1.6;margin-bottom:32px}.success-id{font-size:12px;color:#737373;padding:12px;background:#f5f5f5;margin-bottom:24px;border-radius:4px}.btn-new{display:inline-flex;align-items:center;justify-content:center;padding:16px 32px;font-family:inherit;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;width:100%;background:#000;color:#fff}.btn-new:hover{background:#262626}.hidden{display:none!important}@media(max-width:768px){.header{flex-direction:column;gap:10px;padding:15px}.container{padding:16px}.grid2,.grid3,.grid4{grid-template-columns:1fr}.radio-group{flex-direction:column}.previews{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <div id="loginScreen" class="login-screen">
     <div class="login-container">
-      <div class="login-logo">
-        <img src="data:image/png;base64,UklGRtRJAABXRUJQVlA4WAoAAAAwAAAArwQAUwEASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdC
+      <div class="login-logo"><img src="data:image/png;base64,UklGRtRJAABXRUJQVlA4WAoAAAAwAAAArwQAUwEASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdC
 IFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAA
 AADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlk
 ZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAA
@@ -429,26 +346,16 @@ ibPokVeH0TtXI7/okVxcxQCYEisNISuq7RXGLbBcJjH0aJjKs1M8ain+i3f0aJmxq+z6MosL6IRH
 +focAz/oz76MXe/W2t1PtnqEHvoj39FZ/6NS+jOv2dbfiYRwz8dfRWG6xpRBDv8HgMJP68TTTTm2
 l2XITn3Ygrh1ahIjS0TDWExKfRomHn6RqA6oWuYsw/6NIvlUtP0aVjP8gLFdAHnIo+ilhtbf7vcS
 7k/0Z0eD5f56MPSKxQD7Tl7Wi/24v0aTnCyX6M+D8oAJ0Vosvox16nOHIMPLjyW8PJq/osO+iuKa
-aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Foam">
-      </div>
-      <div class="login-form-box">
+aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="NSF"></div>
+      <div class="login-box">
         <h2>Employee Login</h2>
-        <div id="loginError" class="login-error">Invalid username or password</div>
-        <form id="loginForm">
-          <div class="form-field">
-            <label class="form-label">Username</label>
-            <input type="text" id="loginUsername" class="form-input" placeholder="Enter username" required autocomplete="off">
-          </div>
-          <div class="form-field">
-            <label class="form-label">Password</label>
-            <input type="password" id="loginPassword" class="form-input" placeholder="Enter password" required autocomplete="off">
-          </div>
-          <button type="submit" class="btn-login">Sign In</button>
-        </form>
+        <div id="loginError" class="error">Invalid username or password</div>
+        <div class="field"><label class="label">Username</label><input type="text" id="uname" class="input" placeholder="Enter username" autocomplete="off"></div>
+        <div class="field"><label class="label">Password</label><input type="password" id="pword" class="input" placeholder="Enter password" autocomplete="off"></div>
+        <button type="button" id="loginBtn" class="btn-login">Sign In</button>
       </div>
     </div>
   </div>
-
   <div id="mainScreen" class="hidden">
     <header class="header">
       <img src="data:image/png;base64,UklGRtRJAABXRUJQVlA4WAoAAAAwAAAArwQAUwEASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdC
@@ -782,321 +689,175 @@ ibPokVeH0TtXI7/okVxcxQCYEisNISuq7RXGLbBcJjH0aJjKs1M8ain+i3f0aJmxq+z6MosL6IRH
 +focAz/oz76MXe/W2t1PtnqEHvoj39FZ/6NS+jOv2dbfiYRwz8dfRWG6xpRBDv8HgMJP68TTTTm2
 l2XITn3Ygrh1ahIjS0TDWExKfRomHn6RqA6oWuYsw/6NIvlUtP0aVjP8gLFdAHnIo+ilhtbf7vcS
 7k/0Z0eD5f56MPSKxQD7Tl7Wi/24v0aTnCyX6M+D8oAJ0Vosvox16nOHIMPLjyW8PJq/osO+iuKa
-aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Northern Spray Foam">
-      <div class="header-right">
-        <div class="user-badge">Welcome, <span id="welcomeName"></span></div>
-        <button class="btn-logout" id="logoutBtn">Sign Out</button>
-      </div>
+aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="NSF">
+      <div class="header-right"><div class="user-badge">Welcome, <span id="welcomeName"></span></div><button id="logoutBtn" class="btn-logout">Sign Out</button></div>
     </header>
-    <div class="form-container">
+    <div class="container">
       <div class="form-header"><h1>Daily Work Report</h1><p>Complete all fields and submit when finished</p></div>
       <form id="reportForm">
-        <div class="form-section"><div class="section-header"><div class="section-number">01</div><div class="section-title">Operator Info</div></div>
-          <div class="section-content"><div class="form-grid">
-            <div class="form-field"><label class="form-label">Foamer Name</label><input type="text" name="foamerName" id="foamerName" class="form-input" readonly></div>
-            <div class="form-field"><label class="form-label">Select Rig</label><select name="rig" class="form-select" required><option value="">-- Select Rig --</option><option value="Rig 1">Rig 1</option><option value="Rig 2">Rig 2</option><option value="Rig 3">Rig 3</option><option value="Rig 4">Rig 4</option></select></div>
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">02</div><div class="section-title">Job Details</div></div>
-          <div class="section-content"><div class="form-grid">
-            <div class="form-field"><label class="form-label">Date</label><input type="date" id="dateField" name="date" class="form-input" required></div>
-            <div class="form-field"><label class="form-label">Time</label><input type="time" id="timeField" name="time" class="form-input" required></div>
-            <div class="form-field"><label class="form-label">Client Name</label><input type="text" name="client" class="form-input" placeholder="Enter client name" required></div>
-            <div class="form-field"><label class="form-label">Address</label><input type="text" name="address" class="form-input" placeholder="Job site address" required></div>
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">03</div><div class="section-title">ISO Materials</div></div>
-          <div class="section-content">
-            <div class="material-row"><div class="material-label">ISO 1</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso1Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso1Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso1Mfg" class="form-input"></div></div></div>
-            <div class="material-row"><div class="material-label">ISO 2</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso2Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso2Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso2Mfg" class="form-input"></div></div></div>
-            <div class="material-row"><div class="material-label">ISO 3</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="iso3Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="iso3Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="iso3Mfg" class="form-input"></div></div></div>
-          </div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">04</div><div class="section-title">Resin Materials</div></div>
-          <div class="section-content">
-            <div class="material-row"><div class="material-label">Resin 1</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin1Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin1Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin1Mfg" class="form-input"></div></div></div>
-            <div class="material-row"><div class="material-label">Resin 2</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin2Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin2Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin2Mfg" class="form-input"></div></div></div>
-            <div class="material-row"><div class="material-label">Resin 3</div><div class="material-grid-3"><div class="form-field"><label class="form-label">Batch #</label><input type="text" name="resin3Batch" class="form-input"></div><div class="form-field"><label class="form-label">Lot #</label><input type="text" name="resin3Lot" class="form-input"></div><div class="form-field"><label class="form-label">Mfg Date</label><input type="date" name="resin3Mfg" class="form-input"></div></div></div>
-          </div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">05</div><div class="section-title">Environmental Conditions</div></div>
-          <div class="section-content"><div class="form-grid cols-4">
-            <div class="form-field"><label class="form-label">Drum</label><input type="text" name="drum" class="form-input" placeholder="Drum #"></div>
-            <div class="form-field"><label class="form-label">Ambient Temp</label><input type="text" name="ambientTemp" class="form-input" placeholder="e.g. 72F"></div>
-            <div class="form-field"><label class="form-label">R.H. %</label><input type="number" name="relativeHumidity" class="form-input" placeholder="45"></div>
-            <div class="form-field"><label class="form-label">Substrate</label><input type="text" name="substrate" class="form-input" placeholder="Wood"></div>
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">06</div><div class="section-title">Stroke Count</div></div>
-          <div class="section-content"><div class="calc-box">
-            <div class="calc-label">Stroke Count</div>
-            <input type="number" name="strokeCount" class="calc-input" placeholder="Enter count">
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">07</div><div class="section-title">Foam Type</div></div>
-          <div class="section-content"><div class="radio-group">
-            <div class="radio-option"><input type="radio" id="foamBASF" name="foamType" value="BASF V5"><label for="foamBASF">BASF V5</label></div>
-            <div class="radio-option"><input type="radio" id="foamElastochem" name="foamType" value="Elastochem"><label for="foamElastochem">Elastochem</label></div>
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">08</div><div class="section-title">Order Information</div></div>
-          <div class="section-content"><div class="form-grid">
-            <div class="form-field"><label class="form-label">Gillis Containers - Quote #</label><input type="text" name="gillisQuote" class="form-input" placeholder="Quote number"></div>
-            <div class="form-field"><label class="form-label">Outdoor Plus - PO #</label><input type="text" name="outdoorPO" class="form-input" placeholder="PO number"></div>
-          </div></div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">09</div><div class="section-title">Photos (Max 3)</div></div>
-          <div class="section-content">
-            <label class="photo-upload">
-              <input type="file" id="photoInput" accept="image/*" multiple>
-              <div class="photo-upload-icon">📷</div>
-              <div class="photo-upload-text"><strong>Click to upload photos</strong><br>Maximum 3 photos</div>
-            </label>
-            <div class="photo-previews" id="photoPreviews"></div>
-          </div>
-        </div>
-        <div class="form-section"><div class="section-header"><div class="section-number">10</div><div class="section-title">Additional Notes</div></div>
-          <div class="section-content"><textarea name="notes" class="form-input" placeholder="Any additional notes..."></textarea></div>
-        </div>
-        <div class="submit-section">
-          <button type="submit" class="btn-submit" id="submitBtn">Submit Report</button>
-          <p class="submit-note">PDF will download and email sent to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="54273d393b3a7a383122313d383831143a3b26203c31263a272426352d323b35397a3735">[email&#160;protected]</a></p>
-        </div>
+        <div class="section"><div class="section-head"><div class="section-num">01</div><div class="section-title">Operator Info</div></div><div class="section-body"><div class="grid2"><div class="field"><label class="label">Foamer Name</label><input type="text" name="foamerName" id="foamerName" class="input" readonly></div><div class="field"><label class="label">Select Rig</label><select name="rig" class="select" required><option value="">-- Select Rig --</option><option>Rig 1</option><option>Rig 2</option><option>Rig 3</option><option>Rig 4</option></select></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">02</div><div class="section-title">Job Details</div></div><div class="section-body"><div class="grid2"><div class="field"><label class="label">Date</label><input type="date" id="dateField" name="date" class="input" required></div><div class="field"><label class="label">Time</label><input type="time" id="timeField" name="time" class="input" required></div><div class="field"><label class="label">Client Name</label><input type="text" name="client" class="input" placeholder="Client name" required></div><div class="field"><label class="label">Address</label><input type="text" name="address" class="input" placeholder="Job site address" required></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">03</div><div class="section-title">ISO Materials</div></div><div class="section-body"><div class="mat-row"><div class="mat-label">ISO 1</div><div class="grid3"><div class="field"><label class="label">Batch #</label><input type="text" name="iso1Batch" class="input"></div><div class="field"><label class="label">Lot #</label><input type="text" name="iso1Lot" class="input"></div><div class="field"><label class="label">Mfg Date</label><input type="date" name="iso1Mfg" class="input"></div></div></div><div class="mat-row"><div class="mat-label">ISO 2</div><div class="grid3"><div class="field"><label class="label">Batch #</label><input type="text" name="iso2Batch" class="input"></div><div class="field"><label class="label">Lot #</label><input type="text" name="iso2Lot" class="input"></div><div class="field"><label class="label">Mfg Date</label><input type="date" name="iso2Mfg" class="input"></div></div></div><div class="mat-row"><div class="mat-label">ISO 3</div><div class="grid3"><div class="field"><label class="label">Batch #</label><input type="text" name="iso3Batch" class="input"></div><div class="field"><label class="label">Lot #</label><input type="text" name="iso3Lot" class="input"></div><div class="field"><label class="label">Mfg Date</label><input type="date" name="iso3Mfg" class="input"></div></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">04</div><div class="section-title">Resin Materials</div></div><div class="section-body"><div class="mat-row"><div class="mat-label">Resin 1</div><div class="grid3"><div class="field"><label class="label">Batch #</label><input type="text" name="resin1Batch" class="input"></div><div class="field"><label class="label">Lot #</label><input type="text" name="resin1Lot" class="input"></div><div class="field"><label class="label">Mfg Date</label><input type="date" name="resin1Mfg" class="input"></div></div></div><div class="mat-row"><div class="mat-label">Resin 2</div><div class="grid3"><div class="field"><label class="label">Batch #</label><input type="text" name="resin2Batch" class="input"></div><div class="field"><label class="label">Lot #</label><input type="text" name="resin2Lot" class="input"></div><div class="field"><label class="label">Mfg Date</label><input type="date" name="resin2Mfg" class="input"></div></div></div><div class="mat-row"><div class="mat-label">Resin 3</div><div class="grid3"><div class="field"><label class="label">Batch #</label><input type="text" name="resin3Batch" class="input"></div><div class="field"><label class="label">Lot #</label><input type="text" name="resin3Lot" class="input"></div><div class="field"><label class="label">Mfg Date</label><input type="date" name="resin3Mfg" class="input"></div></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">05</div><div class="section-title">Environmental Conditions</div></div><div class="section-body"><div class="grid4"><div class="field"><label class="label">Drum</label><input type="text" name="drum" class="input" placeholder="Drum #"></div><div class="field"><label class="label">Ambient Temp</label><input type="text" name="ambientTemp" class="input" placeholder="72F"></div><div class="field"><label class="label">R.H. %</label><input type="number" name="relativeHumidity" class="input" placeholder="45"></div><div class="field"><label class="label">Substrate</label><input type="text" name="substrate" class="input" placeholder="Wood"></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">06</div><div class="section-title">Stroke Count</div></div><div class="section-body"><div class="calc-box"><div class="calc-label">Stroke Count</div><input type="number" name="strokeCount" class="calc-input" placeholder="0"></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">07</div><div class="section-title">Foam Type</div></div><div class="section-body"><div class="radio-group"><div class="radio-opt"><input type="radio" id="foamBASF" name="foamType" value="BASF V5"><label for="foamBASF">BASF V5</label></div><div class="radio-opt"><input type="radio" id="foamElasto" name="foamType" value="Elastochem"><label for="foamElasto">Elastochem</label></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">08</div><div class="section-title">Order Information</div></div><div class="section-body"><div class="grid2"><div class="field"><label class="label">Gillis Containers - Quote #</label><input type="text" name="gillisQuote" class="input" placeholder="Quote number"></div><div class="field"><label class="label">Outdoor Plus - PO #</label><input type="text" name="outdoorPO" class="input" placeholder="PO number"></div></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">09</div><div class="section-title">Photos (Max 3)</div></div><div class="section-body"><label class="photo-upload"><input type="file" id="photoInput" accept="image/*" multiple><div class="photo-icon">📷</div><div class="photo-text"><strong>Click to upload</strong><br>Maximum 3 photos</div></label><div class="previews" id="previews"></div></div></div>
+        <div class="section"><div class="section-head"><div class="section-num">10</div><div class="section-title">Additional Notes</div></div><div class="section-body"><textarea name="notes" class="input" placeholder="Any additional notes..."></textarea></div></div>
+        <div class="submit-section"><button type="submit" class="btn-submit" id="submitBtn">Submit Report</button><p class="submit-note">PDF will download and email sent to simon.leveille@northernsprayfoam.ca</p></div>
       </form>
     </div>
   </div>
+  <div id="successScreen" class="success"><div class="success-card"><div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><h2 class="success-title">Report Submitted</h2><p class="success-text" id="successMsg">Done!</p><div class="success-id" id="successId"></div><button type="button" class="btn-new" id="newBtn">Submit Another Report</button></div></div>
+<script>
+var users=[['Josh1','Josh123!','Josh'],['Riley2','Riley135!','Riley'],['Kyle3','Kyle157!','Kyle']];
+var currentUser=null;
+var photos=[];
 
-  <div id="successScreen" class="success-screen">
-    <div class="success-card">
-      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <h2 class="success-title">Report Submitted</h2>
-      <p class="success-text" id="successMessage">Your job report has been saved.</p>
-      <div class="success-id" id="successReportId"></div>
-      <button class="btn btn-primary" id="newReportBtn">Submit Another Report</button>
-    </div>
-  </div>
+document.getElementById('loginBtn').onclick=function(){
+  var u=document.getElementById('uname').value;
+  var p=document.getElementById('pword').value;
+  var found=null;
+  for(var i=0;i<users.length;i++){
+    if(users[i][0]===u && users[i][1]===p){
+      found=users[i];
+      break;
+    }
+  }
+  if(found){
+    currentUser={username:found[0],password:found[1],name:found[2]};
+    document.getElementById('loginError').classList.remove('show');
+    document.getElementById('welcomeName').textContent=currentUser.name;
+    document.getElementById('foamerName').value=currentUser.name;
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainScreen').classList.remove('hidden');
+    var n=new Date();
+    document.getElementById('dateField').value=n.toISOString().split('T')[0];
+    document.getElementById('timeField').value=n.toTimeString().slice(0,5);
+  }else{
+    document.getElementById('loginError').classList.add('show');
+  }
+};
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // Encoded credentials
-    var _0x = function(s) { return atob(s); };
-    var USERS = [
-      { username: _0x('Sm9zaDE='), password: _0x('Sm9zaDEyMyE='), name: 'Josh' },
-      { username: _0x('UmlsZXky'), password: _0x('UmlsZXkxMzUh'), name: 'Riley' },
-      { username: _0x('S3lsZTM='), password: _0x('S3lsZTE1NyE='), name: 'Kyle' }
-    ];
-    
-    var currentUser = null;
-    var uploadedPhotos = [];
-    
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var username = document.getElementById('loginUsername').value;
-      var password = document.getElementById('loginPassword').value;
-      var user = USERS.find(function(u) { return u.username === username && u.password === password; });
-      if (user) {
-        currentUser = user;
-        document.getElementById('loginError').classList.remove('show');
-        document.getElementById('welcomeName').textContent = user.name;
-        document.getElementById('foamerName').value = user.name;
-        document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('mainScreen').classList.remove('hidden');
-        setDateTime();
-      } else {
-        document.getElementById('loginError').classList.add('show');
-      }
-    });
-    
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-      currentUser = null;
-      document.getElementById('loginUsername').value = '';
-      document.getElementById('loginPassword').value = '';
-      document.getElementById('reportForm').reset();
-      uploadedPhotos = [];
-      document.getElementById('photoPreviews').innerHTML = '';
-      document.getElementById('mainScreen').classList.add('hidden');
-      document.getElementById('successScreen').className = 'success-screen';
-      document.getElementById('loginScreen').classList.remove('hidden');
-    });
-    
-    function setDateTime() {
-      var n = new Date();
-      document.getElementById('dateField').value = n.toISOString().split('T')[0];
-      document.getElementById('timeField').value = n.toTimeString().slice(0,5);
-    }
-    
-    document.getElementById('photoInput').addEventListener('change', function(e) {
-      var files = Array.from(e.target.files);
-      if (uploadedPhotos.length + files.length > 3) { alert('Maximum 3 photos allowed'); return; }
-      files.forEach(function(file) {
-        if (uploadedPhotos.length >= 3) return;
-        var reader = new FileReader();
-        reader.onload = function(ev) { uploadedPhotos.push({name: file.name, data: ev.target.result}); renderPhotos(); };
-        reader.readAsDataURL(file);
-      });
-      e.target.value = '';
-    });
-    
-    function renderPhotos() {
-      var container = document.getElementById('photoPreviews');
-      container.innerHTML = '';
-      uploadedPhotos.forEach(function(photo, i) {
-        var div = document.createElement('div');
-        div.className = 'photo-preview';
-        div.innerHTML = '<img src="'+photo.data+'"><button type="button" class="photo-preview-remove" onclick="removePhoto('+i+')">×</button>';
-        container.appendChild(div);
-      });
-    }
-    
-    function removePhoto(i) { uploadedPhotos.splice(i, 1); renderPhotos(); }
-    
-    function generatePDF(r) {
-      var jsPDF = window.jspdf.jsPDF;
-      var doc = new jsPDF();
-      var w = doc.internal.pageSize.getWidth();
-      var y = 20;
-      doc.setFillColor(0,0,0); doc.rect(0,0,w,35,'F');
-      doc.setTextColor(255,255,255); doc.setFontSize(20); doc.setFont('helvetica','bold');
-      doc.text('NORTHERN SPRAY FOAM',w/2,15,{align:'center'});
-      doc.setFontSize(12); doc.setFont('helvetica','normal');
-      doc.text('Daily Work Report',w/2,25,{align:'center'});
-      doc.setTextColor(0,0,0); y=45;
-      doc.setFillColor(245,245,245); doc.rect(15,y,w-30,25,'F');
-      doc.setFontSize(10);
-      doc.text('Report ID: '+r.id,20,y+8);
-      doc.text('Foamer: '+r.foamerName,20,y+16);
-      doc.text('Rig: '+r.rig,100,y+8);
-      doc.text('Submitted: '+r.submittedAt,100,y+16);
-      y+=35;
-      function addSec(t,items) {
-        doc.setFillColor(0,0,0); doc.rect(15,y,w-30,8,'F');
-        doc.setTextColor(255,255,255); doc.setFontSize(10); doc.setFont('helvetica','bold');
-        doc.text(t,20,y+6); doc.setTextColor(0,0,0); doc.setFont('helvetica','normal'); y+=12;
-        items.forEach(function(i) { if(y>270){doc.addPage();y=20;} doc.setFontSize(9); doc.text(i.l+':',20,y); doc.setFont('helvetica','bold'); doc.text(String(i.v).substring(0,60),70,y); doc.setFont('helvetica','normal'); y+=7; });
-        y+=5;
-      }
-      addSec('JOB DETAILS',[{l:'Date',v:r.date},{l:'Time',v:r.time},{l:'Client',v:r.client},{l:'Address',v:r.address}]);
-      addSec('ISO MATERIALS',[{l:'ISO 1',v:'Batch: '+r.iso1Batch+' | Lot: '+r.iso1Lot+' | Mfg: '+r.iso1Mfg},{l:'ISO 2',v:'Batch: '+r.iso2Batch+' | Lot: '+r.iso2Lot+' | Mfg: '+r.iso2Mfg},{l:'ISO 3',v:'Batch: '+r.iso3Batch+' | Lot: '+r.iso3Lot+' | Mfg: '+r.iso3Mfg}]);
-      addSec('RESIN MATERIALS',[{l:'Resin 1',v:'Batch: '+r.resin1Batch+' | Lot: '+r.resin1Lot+' | Mfg: '+r.resin1Mfg},{l:'Resin 2',v:'Batch: '+r.resin2Batch+' | Lot: '+r.resin2Lot+' | Mfg: '+r.resin2Mfg},{l:'Resin 3',v:'Batch: '+r.resin3Batch+' | Lot: '+r.resin3Lot+' | Mfg: '+r.resin3Mfg}]);
-      addSec('ENVIRONMENTAL',[{l:'Drum',v:r.drum},{l:'Ambient Temp',v:r.ambientTemp},{l:'R.H. %',v:r.relativeHumidity},{l:'Substrate',v:r.substrate}]);
-      addSec('STROKE COUNT',[{l:'Count',v:r.strokeCount}]);
-      addSec('FOAM TYPE',[{l:'Type',v:r.foamType}]);
-      addSec('ORDER INFO',[{l:'Gillis Quote',v:r.gillisQuote},{l:'Outdoor PO',v:r.outdoorPO}]);
-      if(r.notes && r.notes!=='None') addSec('NOTES',[{l:'Notes',v:r.notes}]);
-      addSec('PHOTOS',[{l:'Attached',v:r.photoCount+' photo(s)'}]);
-      doc.setFillColor(0,0,0); doc.rect(0,282,w,15,'F');
-      doc.setTextColor(255,255,255); doc.setFontSize(8);
-      doc.text('Northern Spray Foam - Daily Work Report',w/2,290,{align:'center'});
-      doc.save('DWR_'+r.client.replace(/[^a-zA-Z0-9]/g,'_')+'_'+r.date+'_'+r.foamerName+'.pdf');
-    }
-    
-    function generateHTMLEmail(r) {
-      return '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f5f5f5;padding:20px;">'+
-        '<div style="background:#000;color:#fff;padding:20px;text-align:center;"><h1 style="margin:0;font-size:24px;">NORTHERN SPRAY FOAM</h1><p style="margin:5px 0 0;font-size:14px;">Daily Work Report</p></div>'+
-        '<div style="background:#fff;padding:20px;margin-top:2px;">'+
-          '<div style="background:#f5f5f5;padding:15px;margin-bottom:15px;border-radius:4px;"><strong>Report ID:</strong> '+r.id+'<br><strong>Foamer:</strong> '+r.foamerName+'<br><strong>Rig:</strong> '+r.rig+'<br><strong>Submitted:</strong> '+r.submittedAt+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">JOB DETAILS</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Date:</strong> '+r.date+'<br><strong>Time:</strong> '+r.time+'<br><strong>Client:</strong> '+r.client+'<br><strong>Address:</strong> '+r.address+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">ISO MATERIALS</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>ISO 1:</strong> Batch: '+r.iso1Batch+' | Lot: '+r.iso1Lot+' | Mfg: '+r.iso1Mfg+'<br><strong>ISO 2:</strong> Batch: '+r.iso2Batch+' | Lot: '+r.iso2Lot+' | Mfg: '+r.iso2Mfg+'<br><strong>ISO 3:</strong> Batch: '+r.iso3Batch+' | Lot: '+r.iso3Lot+' | Mfg: '+r.iso3Mfg+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">RESIN MATERIALS</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Resin 1:</strong> Batch: '+r.resin1Batch+' | Lot: '+r.resin1Lot+' | Mfg: '+r.resin1Mfg+'<br><strong>Resin 2:</strong> Batch: '+r.resin2Batch+' | Lot: '+r.resin2Lot+' | Mfg: '+r.resin2Mfg+'<br><strong>Resin 3:</strong> Batch: '+r.resin3Batch+' | Lot: '+r.resin3Lot+' | Mfg: '+r.resin3Mfg+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">ENVIRONMENTAL</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Drum:</strong> '+r.drum+' | <strong>Temp:</strong> '+r.ambientTemp+' | <strong>R.H.:</strong> '+r.relativeHumidity+'% | <strong>Substrate:</strong> '+r.substrate+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">STROKE COUNT</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Count:</strong> '+r.strokeCount+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">FOAM TYPE</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Type:</strong> '+r.foamType+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">ORDER INFO</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Gillis Quote:</strong> '+r.gillisQuote+'<br><strong>Outdoor PO:</strong> '+r.outdoorPO+'</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">PHOTOS</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Attached:</strong> '+r.photoCount+' photo(s)</div>'+
-          '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;font-size:12px;">NOTES</div>'+
-          '<div style="padding:15px;border:1px solid #e5e5e5;border-top:none;">'+r.notes+'</div>'+
-        '</div>'+
-        '<div style="background:#000;color:#fff;padding:10px;text-align:center;font-size:11px;margin-top:2px;">Northern Spray Foam</div>'+
-      '</div>';
-    }
-    
-    document.getElementById('reportForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Submitting...';
-      
-      var fd = new FormData(this);
-      var data = {};
-      fd.forEach(function(v,k) { data[k] = v; });
-      
-      var id = 'RPT-' + Date.now() + '-' + Math.random().toString(36).substr(2,6).toUpperCase();
-      var report = {
-        id: id,
-        foamerName: currentUser.name,
-        rig: data.rig || 'N/A',
-        submittedAt: new Date().toLocaleString(),
-        photoCount: uploadedPhotos.length,
-        date: data.date || 'N/A',
-        time: data.time || 'N/A',
-        client: data.client || 'N/A',
-        address: data.address || 'N/A',
-        iso1Batch: data.iso1Batch || 'N/A',
-        iso1Lot: data.iso1Lot || 'N/A',
-        iso1Mfg: data.iso1Mfg || 'N/A',
-        iso2Batch: data.iso2Batch || 'N/A',
-        iso2Lot: data.iso2Lot || 'N/A',
-        iso2Mfg: data.iso2Mfg || 'N/A',
-        iso3Batch: data.iso3Batch || 'N/A',
-        iso3Lot: data.iso3Lot || 'N/A',
-        iso3Mfg: data.iso3Mfg || 'N/A',
-        resin1Batch: data.resin1Batch || 'N/A',
-        resin1Lot: data.resin1Lot || 'N/A',
-        resin1Mfg: data.resin1Mfg || 'N/A',
-        resin2Batch: data.resin2Batch || 'N/A',
-        resin2Lot: data.resin2Lot || 'N/A',
-        resin2Mfg: data.resin2Mfg || 'N/A',
-        resin3Batch: data.resin3Batch || 'N/A',
-        resin3Lot: data.resin3Lot || 'N/A',
-        resin3Mfg: data.resin3Mfg || 'N/A',
-        drum: data.drum || 'N/A',
-        ambientTemp: data.ambientTemp || 'N/A',
-        relativeHumidity: data.relativeHumidity || 'N/A',
-        substrate: data.substrate || 'N/A',
-        strokeCount: data.strokeCount || 'N/A',
-        foamType: data.foamType || 'Not specified',
-        gillisQuote: data.gillisQuote || 'N/A',
-        outdoorPO: data.outdoorPO || 'N/A',
-        notes: data.notes || 'None'
-      };
-      
-      generatePDF(report);
-      
-      var emailData = {
-        reportId: id,
-        foamerName: report.foamerName,
-        rig: report.rig,
-        submittedAt: report.submittedAt,
-        htmlContent: generateHTMLEmail(report)
-      };
-      
-      emailjs.send('service_bc8id4v', 'template_avofqoj', emailData)
-        .then(function() {
-          btn.disabled = false;
-          btn.textContent = 'Submit Report';
-          document.getElementById('successMessage').textContent = 'PDF downloaded and email sent!';
-          document.getElementById('successReportId').textContent = 'Report ID: ' + id;
-          document.getElementById('mainScreen').classList.add('hidden');
-          document.getElementById('successScreen').className = 'success-screen active';
-        }, function(error) {
-          btn.disabled = false;
-          btn.textContent = 'Submit Report';
-          document.getElementById('successMessage').textContent = 'PDF downloaded. Email failed - please try again.';
-          document.getElementById('successReportId').textContent = 'Report ID: ' + id;
-          document.getElementById('mainScreen').classList.add('hidden');
-          document.getElementById('successScreen').className = 'success-screen active';
-        });
-    });
-    
-    document.getElementById('newReportBtn').addEventListener('click', function() {
-      document.getElementById('reportForm').reset();
-      document.getElementById('foamerName').value = currentUser.name;
-      uploadedPhotos = [];
-      document.getEleme
+document.getElementById('logoutBtn').onclick=function(){
+  currentUser=null;
+  document.getElementById('uname').value='';
+  document.getElementById('pword').value='';
+  document.getElementById('reportForm').reset();
+  photos=[];
+  document.getElementById('previews').innerHTML='';
+  document.getElementById('mainScreen').classList.add('hidden');
+  document.getElementById('successScreen').className='success';
+  document.getElementById('loginScreen').classList.remove('hidden');
+};
+
+document.getElementById('photoInput').onchange=function(e){
+  var files=Array.from(e.target.files);
+  if(photos.length+files.length>3){alert('Max 3 photos');return;}
+  files.forEach(function(f){
+    if(photos.length>=3)return;
+    var r=new FileReader();
+    r.onload=function(ev){photos.push({name:f.name,data:ev.target.result});renderPhotos();};
+    r.readAsDataURL(f);
+  });
+  e.target.value='';
+};
+
+function renderPhotos(){
+  var c=document.getElementById('previews');
+  c.innerHTML='';
+  photos.forEach(function(p,i){
+    var d=document.createElement('div');
+    d.className='preview';
+    d.innerHTML='<img src="'+p.data+'"><button type="button" class="preview-remove" onclick="removePhoto('+i+')">×</button>';
+    c.appendChild(d);
+  });
+}
+
+function removePhoto(i){photos.splice(i,1);renderPhotos();}
+
+function makePDF(r){
+  var jsPDF=window.jspdf.jsPDF;
+  var doc=new jsPDF();
+  var w=doc.internal.pageSize.getWidth();
+  var y=20;
+  doc.setFillColor(0,0,0);doc.rect(0,0,w,35,'F');
+  doc.setTextColor(255,255,255);doc.setFontSize(20);doc.setFont('helvetica','bold');
+  doc.text('NORTHERN SPRAY FOAM',w/2,15,{align:'center'});
+  doc.setFontSize(12);doc.setFont('helvetica','normal');
+  doc.text('Daily Work Report',w/2,25,{align:'center'});
+  doc.setTextColor(0,0,0);y=45;
+  doc.setFillColor(245,245,245);doc.rect(15,y,w-30,25,'F');
+  doc.setFontSize(10);
+  doc.text('Report ID: '+r.id,20,y+8);
+  doc.text('Foamer: '+r.foamerName,20,y+16);
+  doc.text('Rig: '+r.rig,100,y+8);
+  doc.text('Submitted: '+r.submittedAt,100,y+16);
+  y+=35;
+  function sec(t,items){
+    doc.setFillColor(0,0,0);doc.rect(15,y,w-30,8,'F');
+    doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','bold');
+    doc.text(t,20,y+6);doc.setTextColor(0,0,0);doc.setFont('helvetica','normal');y+=12;
+    items.forEach(function(i){if(y>270){doc.addPage();y=20;}doc.setFontSize(9);doc.text(i.l+':',20,y);doc.setFont('helvetica','bold');doc.text(String(i.v).substring(0,60),70,y);doc.setFont('helvetica','normal');y+=7;});
+    y+=5;
+  }
+  sec('JOB DETAILS',[{l:'Date',v:r.date},{l:'Time',v:r.time},{l:'Client',v:r.client},{l:'Address',v:r.address}]);
+  sec('ISO MATERIALS',[{l:'ISO 1',v:'Batch: '+r.iso1Batch+' | Lot: '+r.iso1Lot+' | Mfg: '+r.iso1Mfg},{l:'ISO 2',v:'Batch: '+r.iso2Batch+' | Lot: '+r.iso2Lot+' | Mfg: '+r.iso2Mfg},{l:'ISO 3',v:'Batch: '+r.iso3Batch+' | Lot: '+r.iso3Lot+' | Mfg: '+r.iso3Mfg}]);
+  sec('RESIN MATERIALS',[{l:'Resin 1',v:'Batch: '+r.resin1Batch+' | Lot: '+r.resin1Lot+' | Mfg: '+r.resin1Mfg},{l:'Resin 2',v:'Batch: '+r.resin2Batch+' | Lot: '+r.resin2Lot+' | Mfg: '+r.resin2Mfg},{l:'Resin 3',v:'Batch: '+r.resin3Batch+' | Lot: '+r.resin3Lot+' | Mfg: '+r.resin3Mfg}]);
+  sec('ENVIRONMENTAL',[{l:'Drum',v:r.drum},{l:'Ambient Temp',v:r.ambientTemp},{l:'R.H. %',v:r.relativeHumidity},{l:'Substrate',v:r.substrate}]);
+  sec('STROKE COUNT',[{l:'Count',v:r.strokeCount}]);
+  sec('FOAM TYPE',[{l:'Type',v:r.foamType}]);
+  sec('ORDER INFO',[{l:'Gillis Quote',v:r.gillisQuote},{l:'Outdoor PO',v:r.outdoorPO}]);
+  if(r.notes&&r.notes!=='None')sec('NOTES',[{l:'Notes',v:r.notes}]);
+  sec('PHOTOS',[{l:'Attached',v:r.photoCount+' photo(s)'}]);
+  doc.setFillColor(0,0,0);doc.rect(0,282,w,15,'F');
+  doc.setTextColor(255,255,255);doc.setFontSize(8);
+  doc.text('Northern Spray Foam',w/2,290,{align:'center'});
+  doc.save('DWR_'+r.client.replace(/[^a-zA-Z0-9]/g,'_')+'_'+r.date+'_'+r.foamerName+'.pdf');
+}
+
+function makeEmail(r){
+  return '<div style="font-family:Arial;max-width:600px;margin:0 auto;background:#f5f5f5;padding:20px;"><div style="background:#000;color:#fff;padding:20px;text-align:center;"><h1 style="margin:0;font-size:24px;">NORTHERN SPRAY FOAM</h1><p style="margin:5px 0 0;">Daily Work Report</p></div><div style="background:#fff;padding:20px;"><div style="background:#f5f5f5;padding:15px;margin-bottom:15px;"><strong>Report ID:</strong> '+r.id+'<br><strong>Foamer:</strong> '+r.foamerName+'<br><strong>Rig:</strong> '+r.rig+'<br><strong>Submitted:</strong> '+r.submittedAt+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">JOB DETAILS</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Date:</strong> '+r.date+'<br><strong>Time:</strong> '+r.time+'<br><strong>Client:</strong> '+r.client+'<br><strong>Address:</strong> '+r.address+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">ISO MATERIALS</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>ISO 1:</strong> '+r.iso1Batch+' / '+r.iso1Lot+' / '+r.iso1Mfg+'<br><strong>ISO 2:</strong> '+r.iso2Batch+' / '+r.iso2Lot+' / '+r.iso2Mfg+'<br><strong>ISO 3:</strong> '+r.iso3Batch+' / '+r.iso3Lot+' / '+r.iso3Mfg+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">RESIN MATERIALS</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;"><strong>Resin 1:</strong> '+r.resin1Batch+' / '+r.resin1Lot+' / '+r.resin1Mfg+'<br><strong>Resin 2:</strong> '+r.resin2Batch+' / '+r.resin2Lot+' / '+r.resin2Mfg+'<br><strong>Resin 3:</strong> '+r.resin3Batch+' / '+r.resin3Lot+' / '+r.resin3Mfg+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">ENVIRONMENTAL</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;">Drum: '+r.drum+' | Temp: '+r.ambientTemp+' | RH: '+r.relativeHumidity+'% | Substrate: '+r.substrate+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">STROKE COUNT</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;">'+r.strokeCount+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">FOAM TYPE</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;">'+r.foamType+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">ORDER INFO</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;margin-bottom:10px;">Gillis: '+r.gillisQuote+' | Outdoor: '+r.outdoorPO+'</div><div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">NOTES</div><div style="padding:15px;border:1px solid #e5e5e5;border-top:none;">'+r.notes+'</div></div></div>';
+}
+
+document.getElementById('reportForm').onsubmit=function(e){
+  e.preventDefault();
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> Submitting...';
+  var fd=new FormData(this);
+  var d={};
+  fd.forEach(function(v,k){d[k]=v;});
+  var id='RPT-'+Date.now()+'-'+Math.random().toString(36).substr(2,6).toUpperCase();
+  var r={id:id,foamerName:currentUser.name,rig:d.rig||'N/A',submittedAt:new Date().toLocaleString(),photoCount:photos.length,date:d.date||'N/A',time:d.time||'N/A',client:d.client||'N/A',address:d.address||'N/A',iso1Batch:d.iso1Batch||'N/A',iso1Lot:d.iso1Lot||'N/A',iso1Mfg:d.iso1Mfg||'N/A',iso2Batch:d.iso2Batch||'N/A',iso2Lot:d.iso2Lot||'N/A',iso2Mfg:d.iso2Mfg||'N/A',iso3Batch:d.iso3Batch||'N/A',iso3Lot:d.iso3Lot||'N/A',iso3Mfg:d.iso3Mfg||'N/A',resin1Batch:d.resin1Batch||'N/A',resin1Lot:d.resin1Lot||'N/A',resin1Mfg:d.resin1Mfg||'N/A',resin2Batch:d.resin2Batch||'N/A',resin2Lot:d.resin2Lot||'N/A',resin2Mfg:d.resin2Mfg||'N/A',resin3Batch:d.resin3Batch||'N/A',resin3Lot:d.resin3Lot||'N/A',resin3Mfg:d.resin3Mfg||'N/A',drum:d.drum||'N/A',ambientTemp:d.ambientTemp||'N/A',relativeHumidity:d.relativeHumidity||'N/A',substrate:d.substrate||'N/A',strokeCount:d.strokeCount||'N/A',foamType:d.foamType||'N/A',gillisQuote:d.gillisQuote||'N/A',outdoorPO:d.outdoorPO||'N/A',notes:d.notes||'None'};
+  makePDF(r);
+  emailjs.send('service_bc8id4v','template_avofqoj',{reportId:id,foamerName:r.foamerName,rig:r.rig,submittedAt:r.submittedAt,htmlContent:makeEmail(r)}).then(function(){
+    btn.disabled=false;btn.textContent='Submit Report';
+    document.getElementById('successMsg').textContent='PDF downloaded and email sent!';
+    document.getElementById('successId').textContent='Report ID: '+id;
+    document.getElementById('mainScreen').classList.add('hidden');
+    document.getElementById('successScreen').className='success active';
+  },function(){
+    btn.disabled=false;btn.textContent='Submit Report';
+    document.getElementById('successMsg').textContent='PDF downloaded. Email failed.';
+    document.getElementById('successId').textContent='Report ID: '+id;
+    document.getElementById('mainScreen').classList.add('hidden');
+    document.getElementById('successScreen').className='success active';
+  });
+};
+
+document.getElementById('newBtn').onclick=function(){
+  document.getElementById('reportForm').reset();
+  document.getElementById('foamerName').value=currentUser.name;
+  photos=[];
+  document.getElementById('previews').innerHTML='';
+  var n=new Date();
+  document.getElementById('dateField').value=n.toISOString().split('T')[0];
+  document.getElementById('timeField').value=n.toTimeString().slice(0,5);
+  document.getElementById('successScreen').className='success';
+  document.getElementById('mainScreen').classList.remove('hidden');
+};
+</script>
+</body>
+</html>
