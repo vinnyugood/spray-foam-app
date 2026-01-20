@@ -19,7 +19,7 @@
     .error{color:red;text-align:center;margin-bottom:15px;display:none}
     .error.show{display:block}
     .app{display:none}
-    .header{background:#000;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
+    .header{background:#000;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
     .header img{height:40px}
     .header button{background:#fff;color:#000;border:none;padding:8px 16px;border-radius:4px;cursor:pointer}
     .container{max-width:800px;margin:20px auto;padding:0 20px}
@@ -38,11 +38,13 @@
     .radio-row input:checked + label{background:#000;color:#fff;border-color:#000}
     .submit-area{background:#000;padding:30px;text-align:center;border-radius:4px;margin-top:20px}
     .submit-area button{background:#fff;color:#000;border:none;padding:15px 40px;font-size:16px;font-weight:bold;border-radius:4px;cursor:pointer}
+    .submit-area button:disabled{opacity:0.5;cursor:not-allowed}
     .success-page{display:none;min-height:100vh;background:#000;align-items:center;justify-content:center;padding:20px}
     .success-box{background:#fff;padding:40px;border-radius:8px;text-align:center;max-width:400px}
     .success-box h2{margin-bottom:15px}
     .success-box p{margin-bottom:20px;color:#666}
     .success-box button{background:#000;color:#fff;border:none;padding:15px 30px;border-radius:4px;cursor:pointer;width:100%}
+    @media(max-width:600px){.row>*{min-width:100%}}
   </style>
 </head>
 <body>
@@ -818,7 +820,7 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Logo">
       </div>
       <div class="submit-area">
         <button type="submit" id="submitBtn">Submit Report</button>
-        <p style="color:#999;margin-top:15px;font-size:14px">PDF will download and email sent</p>
+        <p style="color:#999;margin-top:15px;font-size:14px">Report will be emailed with PDF</p>
       </div>
     </form>
   </div>
@@ -827,7 +829,7 @@ aH2NmjzMJLkTpBCSfW2tBDwFNb/4Gyi3ebsoooAAAAAAAAAAAAAAAAA=" alt="Logo">
 <div class="success-page" id="successPage">
   <div class="success-box">
     <h2>Report Submitted!</h2>
-    <p id="successMsg">PDF downloaded and email sent.</p>
+    <p id="successMsg">Report sent successfully.</p>
     <p id="successId" style="font-size:12px;color:#999"></p>
     <button onclick="newReport()">Submit Another Report</button>
   </div>
@@ -867,6 +869,91 @@ function logout(){
   document.getElementById('loginPage').style.display = 'flex';
 }
 
+function generatePDFBase64(r){
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF();
+  var w = doc.internal.pageSize.getWidth();
+  
+  // Header
+  doc.setFillColor(0,0,0);
+  doc.rect(0,0,w,35,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(20);
+  doc.setFont('helvetica','bold');
+  doc.text('NORTHERN SPRAY FOAM',w/2,15,{align:'center'});
+  doc.setFontSize(12);
+  doc.setFont('helvetica','normal');
+  doc.text('Daily Work Report',w/2,25,{align:'center'});
+  
+  // Info box
+  doc.setTextColor(0,0,0);
+  doc.setFillColor(245,245,245);
+  doc.rect(15,40,w-30,25,'F');
+  doc.setFontSize(10);
+  doc.text('Report ID: '+r.id,20,50);
+  doc.text('Foamer: '+r.foamerName+' | Rig: '+r.rig,20,58);
+  doc.text('Submitted: '+r.submittedAt,120,50);
+  
+  var y = 75;
+  function section(title, items){
+    doc.setFillColor(0,0,0);
+    doc.rect(15,y,w-30,8,'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(10);
+    doc.setFont('helvetica','bold');
+    doc.text(title,20,y+6);
+    doc.setTextColor(0,0,0);
+    doc.setFont('helvetica','normal');
+    y += 12;
+    items.forEach(function(item){
+      if(y > 270){ doc.addPage(); y = 20; }
+      doc.setFontSize(9);
+      doc.text(item.label + ':', 20, y);
+      doc.setFont('helvetica','bold');
+      doc.text(String(item.value).substring(0,50), 70, y);
+      doc.setFont('helvetica','normal');
+      y += 7;
+    });
+    y += 5;
+  }
+  
+  section('JOB DETAILS',[
+    {label:'Date',value:r.date},{label:'Time',value:r.time},
+    {label:'Client',value:r.client},{label:'Address',value:r.address}
+  ]);
+  section('ISO MATERIALS',[
+    {label:'ISO 1',value:r.iso1Batch+' / '+r.iso1Lot+' / '+r.iso1Mfg},
+    {label:'ISO 2',value:r.iso2Batch+' / '+r.iso2Lot+' / '+r.iso2Mfg},
+    {label:'ISO 3',value:r.iso3Batch+' / '+r.iso3Lot+' / '+r.iso3Mfg}
+  ]);
+  section('RESIN MATERIALS',[
+    {label:'Resin 1',value:r.resin1Batch+' / '+r.resin1Lot+' / '+r.resin1Mfg},
+    {label:'Resin 2',value:r.resin2Batch+' / '+r.resin2Lot+' / '+r.resin2Mfg},
+    {label:'Resin 3',value:r.resin3Batch+' / '+r.resin3Lot+' / '+r.resin3Mfg}
+  ]);
+  section('ENVIRONMENTAL',[
+    {label:'Drum',value:r.drum},{label:'Ambient Temp',value:r.ambientTemp},
+    {label:'R.H. %',value:r.relativeHumidity},{label:'Substrate',value:r.substrate}
+  ]);
+  section('STROKE COUNT',[{label:'Count',value:r.strokeCount}]);
+  section('FOAM TYPE',[{label:'Type',value:r.foamType}]);
+  section('ORDER INFO',[
+    {label:'Gillis Quote',value:r.gillisQuote},{label:'Outdoor PO',value:r.outdoorPO}
+  ]);
+  if(r.notes && r.notes !== 'N/A'){
+    section('NOTES',[{label:'Notes',value:r.notes}]);
+  }
+  
+  // Footer
+  doc.setFillColor(0,0,0);
+  doc.rect(0,282,w,15,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(8);
+  doc.text('Northern Spray Foam - Daily Work Report',w/2,290,{align:'center'});
+  
+  return doc.output('datauristring');
+}
+
 function submitForm(e){
   e.preventDefault();
   var btn = document.getElementById('submitBtn');
@@ -877,7 +964,7 @@ function submitForm(e){
   var d = {};
   fd.forEach(function(v,k){ d[k] = v || 'N/A'; });
   
-  var id = 'RPT-' + Date.now();
+  var id = 'RPT-' + Date.now() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
   var r = {
     id: id,
     foamerName: currentUser,
@@ -895,53 +982,87 @@ function submitForm(e){
     gillisQuote: d.gillisQuote, outdoorPO: d.outdoorPO, notes: d.notes
   };
   
-  // Generate PDF
-  var jsPDF = window.jspdf.jsPDF;
-  var doc = new jsPDF();
-  doc.setFillColor(0,0,0);
-  doc.rect(0,0,210,30,'F');
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18);
-  doc.text('NORTHERN SPRAY FOAM - Daily Report', 105, 18, {align:'center'});
-  doc.setTextColor(0,0,0);
-  doc.setFontSize(11);
-  var y = 40;
-  doc.text('Report ID: ' + r.id, 20, y); y += 8;
-  doc.text('Foamer: ' + r.foamerName + ' | Rig: ' + r.rig + ' | Date: ' + r.date + ' ' + r.time, 20, y); y += 8;
-  doc.text('Client: ' + r.client + ' | Address: ' + r.address, 20, y); y += 12;
-  doc.text('ISO 1: ' + r.iso1Batch + ' / ' + r.iso1Lot + ' / ' + r.iso1Mfg, 20, y); y += 6;
-  doc.text('ISO 2: ' + r.iso2Batch + ' / ' + r.iso2Lot + ' / ' + r.iso2Mfg, 20, y); y += 6;
-  doc.text('ISO 3: ' + r.iso3Batch + ' / ' + r.iso3Lot + ' / ' + r.iso3Mfg, 20, y); y += 10;
-  doc.text('Resin 1: ' + r.resin1Batch + ' / ' + r.resin1Lot + ' / ' + r.resin1Mfg, 20, y); y += 6;
-  doc.text('Resin 2: ' + r.resin2Batch + ' / ' + r.resin2Lot + ' / ' + r.resin2Mfg, 20, y); y += 6;
-  doc.text('Resin 3: ' + r.resin3Batch + ' / ' + r.resin3Lot + ' / ' + r.resin3Mfg, 20, y); y += 10;
-  doc.text('Environmental: Drum ' + r.drum + ' | Temp ' + r.ambientTemp + ' | RH ' + r.relativeHumidity + '% | ' + r.substrate, 20, y); y += 8;
-  doc.text('Stroke Count: ' + r.strokeCount, 20, y); y += 8;
-  doc.text('Foam Type: ' + r.foamType, 20, y); y += 8;
-  doc.text('Gillis Quote: ' + r.gillisQuote + ' | Outdoor PO: ' + r.outdoorPO, 20, y); y += 10;
-  doc.text('Notes: ' + r.notes, 20, y);
-  doc.save('Report_' + r.client + '_' + r.date + '.pdf');
+  // Generate PDF as base64
+  var pdfData = generatePDFBase64(r);
+  var base64 = pdfData.split(',')[1];
   
-  // Send Email
-  emailjs.init('Q7vfSyGPYW9lQTux-');
-  var html = '<div style="font-family:Arial;max-width:600px;margin:auto;"><div style="background:#000;color:#fff;padding:20px;text-align:center;"><h2>NORTHERN SPRAY FOAM</h2><p>Daily Work Report</p></div><div style="padding:20px;background:#fff;"><p><strong>ID:</strong> '+r.id+'</p><p><strong>Foamer:</strong> '+r.foamerName+' | <strong>Rig:</strong> '+r.rig+'</p><p><strong>Date:</strong> '+r.date+' '+r.time+'</p><p><strong>Client:</strong> '+r.client+'</p><p><strong>Address:</strong> '+r.address+'</p><hr><p><strong>ISO 1:</strong> '+r.iso1Batch+'/'+r.iso1Lot+'/'+r.iso1Mfg+'</p><p><strong>ISO 2:</strong> '+r.iso2Batch+'/'+r.iso2Lot+'/'+r.iso2Mfg+'</p><p><strong>ISO 3:</strong> '+r.iso3Batch+'/'+r.iso3Lot+'/'+r.iso3Mfg+'</p><hr><p><strong>Resin 1:</strong> '+r.resin1Batch+'/'+r.resin1Lot+'/'+r.resin1Mfg+'</p><p><strong>Resin 2:</strong> '+r.resin2Batch+'/'+r.resin2Lot+'/'+r.resin2Mfg+'</p><p><strong>Resin 3:</strong> '+r.resin3Batch+'/'+r.resin3Lot+'/'+r.resin3Mfg+'</p><hr><p><strong>Drum:</strong> '+r.drum+' | <strong>Temp:</strong> '+r.ambientTemp+' | <strong>RH:</strong> '+r.relativeHumidity+'% | <strong>Substrate:</strong> '+r.substrate+'</p><p><strong>Stroke Count:</strong> '+r.strokeCount+'</p><p><strong>Foam Type:</strong> '+r.foamType+'</p><p><strong>Gillis:</strong> '+r.gillisQuote+' | <strong>Outdoor:</strong> '+r.outdoorPO+'</p><hr><p><strong>Notes:</strong> '+r.notes+'</p></div></div>';
-  
-  emailjs.send('service_bc8id4v','template_avofqoj',{
-    reportId: r.id,
-    foamerName: r.foamerName,
-    htmlContent: html
-  }).then(function(){
+  // Upload to file.io (free file hosting, link expires after download)
+  fetch('https://file.io', {
+    method: 'POST',
+    body: (function(){
+      var formData = new FormData();
+      var blob = new Blob([Uint8Array.from(atob(base64), function(c){ return c.charCodeAt(0); })], {type:'application/pdf'});
+      formData.append('file', blob, 'Report_'+r.client+'_'+r.date+'.pdf');
+      return formData;
+    })()
+  })
+  .then(function(res){ return res.json(); })
+  .then(function(data){
+    var pdfLink = data.link || 'PDF upload failed';
+    
+    // Send email with PDF link
+    emailjs.init('Q7vfSyGPYW9lQTux-');
+    var html = '<div style="font-family:Arial;max-width:600px;margin:auto;">'+
+      '<div style="background:#000;color:#fff;padding:20px;text-align:center;">'+
+      '<h2 style="margin:0;">NORTHERN SPRAY FOAM</h2><p style="margin:5px 0 0;">Daily Work Report</p></div>'+
+      '<div style="padding:20px;background:#fff;">'+
+      '<div style="background:#4CAF50;color:#fff;padding:15px;text-align:center;margin-bottom:20px;border-radius:4px;">'+
+      '<strong style="font-size:16px;">📄 DOWNLOAD PDF REPORT</strong><br>'+
+      '<a href="'+pdfLink+'" style="color:#fff;font-size:18px;">'+pdfLink+'</a></div>'+
+      '<div style="background:#f5f5f5;padding:15px;margin-bottom:15px;border-radius:4px;">'+
+      '<strong>Report ID:</strong> '+r.id+'<br>'+
+      '<strong>Foamer:</strong> '+r.foamerName+'<br>'+
+      '<strong>Rig:</strong> '+r.rig+'<br>'+
+      '<strong>Submitted:</strong> '+r.submittedAt+'</div>'+
+      '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">JOB DETAILS</div>'+
+      '<div style="padding:15px;border:1px solid #ddd;border-top:none;margin-bottom:10px;">'+
+      '<strong>Date:</strong> '+r.date+' <strong>Time:</strong> '+r.time+'<br>'+
+      '<strong>Client:</strong> '+r.client+'<br>'+
+      '<strong>Address:</strong> '+r.address+'</div>'+
+      '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">ISO MATERIALS</div>'+
+      '<div style="padding:15px;border:1px solid #ddd;border-top:none;margin-bottom:10px;">'+
+      '<strong>ISO 1:</strong> '+r.iso1Batch+' / '+r.iso1Lot+' / '+r.iso1Mfg+'<br>'+
+      '<strong>ISO 2:</strong> '+r.iso2Batch+' / '+r.iso2Lot+' / '+r.iso2Mfg+'<br>'+
+      '<strong>ISO 3:</strong> '+r.iso3Batch+' / '+r.iso3Lot+' / '+r.iso3Mfg+'</div>'+
+      '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">RESIN MATERIALS</div>'+
+      '<div style="padding:15px;border:1px solid #ddd;border-top:none;margin-bottom:10px;">'+
+      '<strong>Resin 1:</strong> '+r.resin1Batch+' / '+r.resin1Lot+' / '+r.resin1Mfg+'<br>'+
+      '<strong>Resin 2:</strong> '+r.resin2Batch+' / '+r.resin2Lot+' / '+r.resin2Mfg+'<br>'+
+      '<strong>Resin 3:</strong> '+r.resin3Batch+' / '+r.resin3Lot+' / '+r.resin3Mfg+'</div>'+
+      '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">ENVIRONMENTAL</div>'+
+      '<div style="padding:15px;border:1px solid #ddd;border-top:none;margin-bottom:10px;">'+
+      'Drum: '+r.drum+' | Temp: '+r.ambientTemp+' | RH: '+r.relativeHumidity+'% | Substrate: '+r.substrate+'</div>'+
+      '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">OTHER INFO</div>'+
+      '<div style="padding:15px;border:1px solid #ddd;border-top:none;margin-bottom:10px;">'+
+      '<strong>Stroke Count:</strong> '+r.strokeCount+'<br>'+
+      '<strong>Foam Type:</strong> '+r.foamType+'<br>'+
+      '<strong>Gillis Quote:</strong> '+r.gillisQuote+'<br>'+
+      '<strong>Outdoor PO:</strong> '+r.outdoorPO+'</div>'+
+      '<div style="background:#000;color:#fff;padding:10px 15px;font-weight:bold;">NOTES</div>'+
+      '<div style="padding:15px;border:1px solid #ddd;border-top:none;">'+r.notes+'</div>'+
+      '</div></div>';
+    
+    return emailjs.send('service_bc8id4v','template_avofqoj',{
+      reportId: r.id,
+      foamerName: r.foamerName,
+      client: r.client,
+      htmlContent: html
+    });
+  })
+  .then(function(){
     btn.disabled = false;
     btn.textContent = 'Submit Report';
-    document.getElementById('successMsg').textContent = 'PDF downloaded and email sent!';
-    document.getElementById('successId').textContent = 'Report ID: ' + r.id;
+    document.getElementById('successMsg').textContent = 'Report sent with PDF link!';
+    document.getElementById('successId').textContent = 'Report ID: ' + id;
     document.getElementById('app').style.display = 'none';
     document.getElementById('successPage').style.display = 'flex';
-  }, function(){
+  })
+  .catch(function(err){
+    console.error(err);
     btn.disabled = false;
     btn.textContent = 'Submit Report';
-    document.getElementById('successMsg').textContent = 'PDF downloaded. Email may have failed.';
-    document.getElementById('successId').textContent = 'Report ID: ' + r.id;
+    document.getElementById('successMsg').textContent = 'Report sent (PDF link may have failed).';
+    document.getElementById('successId').textContent = 'Report ID: ' + id;
     document.getElementById('app').style.display = 'none';
     document.getElementById('successPage').style.display = 'flex';
   });
